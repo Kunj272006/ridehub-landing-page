@@ -1,0 +1,3611 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="description"
+    content="SpeedWheelz by RideHub — Hourly bike & scooter rentals in Dehradun. Powered by HubX. Instant booking from ₹29/hr." />
+  <title>SpeedWheelz — Powered by RideHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --bg: #f5f0e8;
+      --bg2: #eee8d8;
+      --ink: #111008;
+      --lime: #d8ff58;
+      --rust: #e84b2a;
+      --sand: #e8e0cc;
+      --muted: #7a7360;
+      --card: #ffffff;
+      --radius: 16px;
+      --nav-bg: rgba(245, 240, 232, 0.96);
+      --shadow: rgba(0, 0, 0, 0.08);
+      --border: rgba(0, 0, 0, 0.08);
+      --step-bg: #111008;
+      --step-hover: #1e1c14;
+      --glow: rgba(232, 75, 42, 0.15);
+      --hubx: #09071e;
+      --hubx-accent: #6c47ff;
+      --hubx-glow: rgba(108, 71, 255, 0.25);
+      --px: 52px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0e0d09;
+      --bg2: #161410;
+      --ink: #f0ebe0;
+      --lime: #c8f040;
+      --rust: #ff5c35;
+      --sand: #1e1c15;
+      --muted: #9a9280;
+      --card: #1a1812;
+      --nav-bg: rgba(14, 13, 9, 0.97);
+      --shadow: rgba(0, 0, 0, 0.5);
+      --border: rgba(255, 255, 255, 0.07);
+      --step-bg: #0e0d09;
+      --step-hover: #1a1812;
+      --glow: rgba(255, 92, 53, 0.12);
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+      transition: background .5s, color .5s
+    }
+
+    /* PARTICLES */
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .4
+    }
+
+    /* CURSOR — desktop only */
+    .cur,
+    .cur-r {
+      display: none
+    }
+
+    @media(pointer:fine) {
+      .cur {
+        display: block;
+        width: 12px;
+        height: 12px;
+        background: var(--rust);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width .25s, height .25s, background .25s
+      }
+
+      .cur-r {
+        display: block;
+        width: 40px;
+        height: 40px;
+        border: 1.5px solid var(--rust);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9998;
+        opacity: .3;
+        transform: translate(-50%, -50%);
+        transition: all .4s
+      }
+
+      .cur.hov {
+        width: 52px;
+        height: 52px;
+        background: transparent;
+        border: 2px solid var(--rust)
+      }
+
+      .cur-r.hov {
+        opacity: 0
+      }
+
+      .cur.hubx-hov {
+        background: var(--hubx-accent);
+        border: none;
+        width: 14px;
+        height: 14px
+      }
+
+      .cur-r.hubx-hov {
+        border-color: var(--hubx-accent);
+        opacity: .4
+      }
+
+      body {
+        cursor: none
+      }
+    }
+
+    /* SCROLL BAR */
+    #scroll-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--rust), var(--lime));
+      z-index: 9997;
+      width: 0%;
+      box-shadow: 0 0 10px var(--rust);
+      transition: width .12s linear
+    }
+
+    /* ━━━━━━━━━━━━━━━ NAV ━━━━━━━━━━━━━━━ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px var(--px);
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: padding .35s, box-shadow .35s, background .4s
+    }
+
+    nav.scrolled {
+      padding: 11px var(--px);
+      box-shadow: 0 4px 32px var(--shadow)
+    }
+
+    .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      text-decoration: none;
+      line-height: 1
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: .04em;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0
+    }
+
+    .logo span {
+      color: var(--rust)
+    }
+
+    .logo-tag {
+      font-family: 'Outfit', sans-serif;
+      font-size: .54rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: var(--lime);
+      color: #111;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 7px;
+      margin-top: 8px;
+      align-self: flex-start;
+      animation: pulseBadge 3s ease-in-out infinite
+    }
+
+    @keyframes pulseBadge {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.09)
+      }
+    }
+
+    .logo-sub {
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding-left: 2px
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .82rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color .2s;
+      cursor: none;
+      position: relative
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--rust);
+      transition: width .3s;
+      border-radius: 2px
+    }
+
+    .nav-links a:hover {
+      color: var(--ink)
+    }
+
+    .nav-links a:hover::after {
+      width: 100%
+    }
+
+    .nav-links a.hubx-link {
+      color: var(--hubx-accent) !important
+    }
+
+    .nav-links a.hubx-link::after {
+      background: var(--hubx-accent)
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .theme-btn {
+      width: 46px;
+      height: 26px;
+      background: var(--sand);
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      position: relative;
+      cursor: none;
+      transition: background .3s;
+      flex-shrink: 0
+    }
+
+    .theme-btn::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: var(--rust);
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), background .3s
+    }
+
+    [data-theme="dark"] .theme-btn::before {
+      transform: translateX(20px);
+      background: var(--lime)
+    }
+
+    .nav-btn {
+      background: var(--ink) !important;
+      color: var(--bg) !important;
+      padding: 9px 22px;
+      border-radius: 100px;
+      font-size: .8rem !important;
+      font-weight: 600 !important;
+      transition: all .2s !important;
+      cursor: none !important;
+      text-decoration: none;
+      display: inline-block;
+      white-space: nowrap
+    }
+
+    .nav-btn:hover {
+      background: var(--rust) !important;
+      transform: scale(1.04) !important
+    }
+
+    /* mobile hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      z-index: 201
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: all .3s
+    }
+
+    .nav-hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .nav-hamburger.open span:nth-child(2) {
+      opacity: 0
+    }
+
+    .nav-hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: 0;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      z-index: 199;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity .3s, transform .3s
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .mobile-menu a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: .06em;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color .2s
+    }
+
+    .mobile-menu a:hover {
+      color: var(--rust)
+    }
+
+    .mobile-menu a.hubx-link {
+      color: var(--hubx-accent)
+    }
+
+    /* ━━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━━━ */
+    .hero {
+      min-height: 100vh;
+      padding: 120px var(--px) 60px;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: center;
+      overflow: hidden
+    }
+
+    .hero-bg-shape {
+      position: absolute;
+      top: -10%;
+      right: -5%;
+      width: 58%;
+      height: 130%;
+      background: var(--sand);
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+      transition: background .5s
+    }
+
+    .hero-blob {
+      position: absolute;
+      top: 20%;
+      right: 10%;
+      width: 300px;
+      height: 300px;
+      background: var(--glow);
+      border-radius: 50%;
+      filter: blur(70px);
+      z-index: 0;
+      animation: blobMorph 8s ease-in-out infinite;
+      pointer-events: none;
+      transition: transform .1s linear
+    }
+
+    @keyframes blobMorph {
+
+      0%,
+      100% {
+        border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+        transform: scale(1)
+      }
+
+      33% {
+        border-radius: 30% 60% 70% 40%/50% 60% 30% 60%;
+        transform: scale(1.1)
+      }
+
+      66% {
+        border-radius: 20% 60% 80% 40%/70% 30% 60% 40%;
+        transform: scale(.95)
+      }
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center
+    }
+
+    .shop-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ink);
+      color: var(--lime);
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 18px;
+      animation: fadeUp .9s .05s both
+    }
+
+    .shop-badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--lime);
+      border-radius: 50%;
+      animation: pulseGlow 2s infinite;
+      flex-shrink: 0
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(216, 255, 88, .5)
+      }
+
+      50% {
+        opacity: .7;
+        box-shadow: 0 0 0 4px rgba(216, 255, 88, 0)
+      }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 16px;
+      animation: fadeUp .9s .15s both
+    }
+
+    .eyebrow-line {
+      width: 28px;
+      height: 2px;
+      background: var(--rust);
+      flex-shrink: 0
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9vw, 8rem);
+      line-height: .92;
+      letter-spacing: .02em;
+      margin-bottom: 24px;
+      overflow: hidden
+    }
+
+    .hero-title .tline {
+      display: block;
+      overflow: hidden
+    }
+
+    .hero-title .tline span {
+      display: block;
+      animation: slideUp .9s cubic-bezier(.16, 1, .3, 1) both
+    }
+
+    .hero-title .tline:nth-child(1) span {
+      animation-delay: .18s
+    }
+
+    .hero-title .tline:nth-child(2) span {
+      animation-delay: .30s
+    }
+
+    .hero-title .tline:nth-child(3) span {
+      animation-delay: .42s
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(110%);
+        opacity: 0
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1
+      }
+    }
+
+    .hero-title .outline {
+      -webkit-text-stroke: 2px var(--ink);
+      color: transparent
+    }
+
+    .hero-title .accent {
+      color: var(--rust)
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 36px;
+      animation: fadeUp .9s .54s both
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      animation: fadeUp .9s .66s both
+    }
+
+    .btn-main {
+      background: var(--rust);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 100px;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: none;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(232, 75, 42, .28);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow .2s
+    }
+
+    .btn-main::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, .15);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s;
+      border-radius: 100px
+    }
+
+    .btn-main:hover::before {
+      transform: scaleX(1)
+    }
+
+    .btn-main:hover {
+      box-shadow: 0 10px 36px rgba(232, 75, 42, .42)
+    }
+
+    .btn-outline {
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      padding: 13px 26px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .95rem;
+      font-weight: 500;
+      cursor: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color .25s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .btn-outline::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: translateY(100%);
+      transition: transform .3s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .btn-outline:hover {
+      color: var(--bg)
+    }
+
+    .btn-outline:hover::before {
+      transform: translateY(0)
+    }
+
+    .btn-outline span {
+      position: relative;
+      z-index: 1
+    }
+
+    .price-pill {
+      margin-top: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--lime);
+      border-radius: 100px;
+      padding: 9px 18px;
+      animation: fadeUp .9s .8s both;
+      cursor: none;
+      transition: transform .2s, box-shadow .2s
+    }
+
+    .price-pill:hover {
+      transform: scale(1.04);
+      box-shadow: 0 6px 20px rgba(216, 255, 88, .4)
+    }
+
+    .pill-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: .04em;
+      color: #111
+    }
+
+    .pill-text {
+      font-size: .8rem;
+      font-weight: 500;
+      color: #111
+    }
+
+    /* BIKE */
+    .bike-wrap {
+      animation: fadeUp .9s .36s both;
+      position: relative
+    }
+
+    .bike-svg-container {
+      width: min(420px, 90vw);
+      height: auto;
+      aspect-ratio: 420/320;
+      position: relative
+    }
+
+    .bike-svg-container svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, .12));
+      animation: bikeSway 6s ease-in-out infinite
+    }
+
+    @keyframes bikeSway {
+
+      0%,
+      100% {
+        transform: rotate(-1deg) translateY(0)
+      }
+
+      50% {
+        transform: rotate(1deg) translateY(-10px)
+      }
+    }
+
+    .float-tag {
+      position: absolute;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 28px var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: floatY 3s ease-in-out infinite;
+      transition: background .4s, transform .2s;
+      white-space: nowrap
+    }
+
+    .float-tag:hover {
+      transform: scale(1.07) translateY(-4px) !important
+    }
+
+    .float-tag:nth-child(2) {
+      animation-delay: .8s
+    }
+
+    .float-tag:nth-child(3) {
+      animation-delay: 1.6s
+    }
+
+    @keyframes floatY {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    .ft-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0
+    }
+
+    .ft-label {
+      font-size: .62rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      line-height: 1
+    }
+
+    .ft-val {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3
+    }
+
+    .ft1 {
+      top: 8px;
+      right: -8px
+    }
+
+    .ft2 {
+      bottom: 44px;
+      left: -16px
+    }
+
+    .ft3 {
+      top: 46%;
+      right: -52px
+    }
+
+    /* ━━━━━━━━━━━━━━━ TICKER ━━━━━━━━━━━━━━━ */
+    .ticker-wrap {
+      background: var(--ink);
+      color: var(--lime);
+      padding: 13px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: background .5s
+    }
+
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker 26s linear infinite
+    }
+
+    .ticker-wrap:hover .ticker-inner {
+      animation-play-state: paused
+    }
+
+    @keyframes ticker {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: .08em;
+      padding: 0 36px
+    }
+
+    .ticker-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--rust);
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .ticker-item.hubx-tick {
+      color: var(--hubx-accent)
+    }
+
+    /* ━━━━━━━━━━━━━━━ STATS STRIP — FIXED ━━━━━━━━━━━━━━━ */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #111008;
+      /* single solid bg, no alternating */
+    }
+
+    .stat-item {
+      padding: 44px 24px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, .06);
+      background: #111008;
+      /* force every cell identical */
+      transition: background .3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .stat-item:last-child {
+      border-right: none
+    }
+
+    .stat-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .6s, transform .6s, background .3s
+    }
+
+    .stat-item:nth-child(2) {
+      transition-delay: .1s
+    }
+
+    .stat-item:nth-child(3) {
+      transition-delay: .2s
+    }
+
+    .stat-item:nth-child(4) {
+      transition-delay: .3s
+    }
+
+    .stat-item:hover {
+      background: #1a1812
+    }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      letter-spacing: .02em;
+      color: var(--lime);
+      line-height: 1
+    }
+
+    .stat-label {
+      font-size: .72rem;
+      color: rgba(240, 235, 224, .4);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-top: 8px
+    }
+
+    /* ━━━━━━━━━━━━━━━ SHOP BANNER ━━━━━━━━━━━━━━━ */
+    .shop-banner {
+      padding: 36px var(--px);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      transition: background .5s
+    }
+
+    .shop-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s, transform .6s
+    }
+
+    .shop-item.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .shop-item:nth-child(2) {
+      transition-delay: .1s
+    }
+
+    .shop-item:nth-child(3) {
+      transition-delay: .2s
+    }
+
+    .shop-item:nth-child(4) {
+      transition-delay: .3s
+    }
+
+    .shop-icon-wrap {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      background: var(--lime);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      transition: transform .3s
+    }
+
+    .shop-item:hover .shop-icon-wrap {
+      transform: rotate(-8deg) scale(1.1)
+    }
+
+    .shop-label {
+      font-size: .64rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3px
+    }
+
+    .shop-val {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.5
+    }
+
+    .shop-val a {
+      color: var(--rust);
+      text-decoration: none
+    }
+
+    .shop-val a:hover {
+      text-decoration: underline
+    }
+
+    /* ━━━━━━━━━━━━━━━ SECTION SHARED ━━━━━━━━━━━━━━━ */
+    .sec-eyebrow {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rust);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px
+    }
+
+    .sec-eyebrow::before {
+      content: '';
+      width: 22px;
+      height: 2px;
+      background: var(--rust);
+      flex-shrink: 0
+    }
+
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: .02em
+    }
+
+    .sec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px
+    }
+
+    .sec-link {
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid var(--muted);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
+      cursor: none;
+      white-space: nowrap
+    }
+
+    .sec-link:hover {
+      color: var(--rust);
+      border-color: var(--rust)
+    }
+
+    /* ━━━━━━━━━━━━━━━ VEHICLES ━━━━━━━━━━━━━━━ */
+    .vehicles {
+      padding: 90px var(--px);
+      position: relative
+    }
+
+    .vehicles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px
+    }
+
+    .v-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: none;
+      opacity: 0;
+      transform: translateY(36px) scale(.97);
+      transition: background .4s
+    }
+
+    .v-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1), box-shadow .3s, background .4s
+    }
+
+    .v-card:nth-child(2) {
+      transition-delay: .12s
+    }
+
+    .v-card:nth-child(3) {
+      transition-delay: .24s
+    }
+
+    .v-card:hover {
+      box-shadow: 0 24px 60px var(--shadow)
+    }
+
+    .v-img-wrap {
+      height: 190px;
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: background .4s
+    }
+
+    .v-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 110%, var(--rust) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .4s
+    }
+
+    .v-card:hover .v-img-wrap::after {
+      opacity: .08
+    }
+
+    .v-emoji {
+      font-size: 4.8rem;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .15));
+      transition: transform .5s cubic-bezier(.34, 1.56, .64, 1)
+    }
+
+    .v-card:hover .v-emoji {
+      transform: scale(1.15) rotate(-8deg) translateY(-6px)
+    }
+
+    .v-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--lime);
+      color: #111;
+      font-size: .64rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 6px
+    }
+
+    .v-badge.hot {
+      background: var(--rust);
+      color: #fff
+    }
+
+    .v-body {
+      padding: 20px
+    }
+
+    .v-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: .04em;
+      margin-bottom: 4px
+    }
+
+    .v-type {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: 14px
+    }
+
+    .v-specs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap
+    }
+
+    .v-spec {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .74rem;
+      color: var(--muted)
+    }
+
+    .v-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 14px
+    }
+
+    .v-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: .02em;
+      color: var(--rust)
+    }
+
+    .v-price sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: .68rem;
+      color: var(--muted);
+      font-weight: 400
+    }
+
+    .v-book-btn {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 9px 18px;
+      border-radius: 100px;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: none;
+      transition: all .2s
+    }
+
+    .v-book-btn:hover {
+      background: var(--rust);
+      transform: scale(1.06)
+    }
+
+    /* ━━━━━━━━━━━━━━━ HUBX ━━━━━━━━━━━━━━━ */
+    .hubx-section {
+      padding: 110px var(--px);
+      background: var(--hubx);
+      position: relative;
+      overflow: hidden
+    }
+
+    .hubx-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(108, 71, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(108, 71, 255, .07) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridPan 30s linear infinite
+    }
+
+    @keyframes gridPan {
+      from {
+        background-position: 0 0
+      }
+
+      to {
+        background-position: 50px 50px
+      }
+    }
+
+    .hubx-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      animation: orbPulse 7s ease-in-out infinite
+    }
+
+    .hubx-orb-1 {
+      width: 500px;
+      height: 500px;
+      background: rgba(108, 71, 255, .14);
+      top: -120px;
+      right: -80px
+    }
+
+    .hubx-orb-2 {
+      width: 280px;
+      height: 280px;
+      background: rgba(232, 75, 42, .09);
+      bottom: -40px;
+      left: -60px;
+      animation-delay: 3.5s
+    }
+
+    @keyframes orbPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: .8
+      }
+
+      50% {
+        transform: scale(1.14);
+        opacity: 1
+      }
+    }
+
+    .hubx-inner {
+      position: relative;
+      z-index: 2
+    }
+
+    .hubx-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--hubx-accent);
+      margin-bottom: 16px
+    }
+
+    .hubx-eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--hubx-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--hubx-accent);
+      animation: pulseGlow 2s infinite;
+      flex-shrink: 0
+    }
+
+    .hubx-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: .9;
+      letter-spacing: .02em;
+      color: #fff;
+      margin-bottom: 6px
+    }
+
+    .hubx-title span {
+      color: var(--hubx-accent)
+    }
+
+    .hubx-tagline {
+      font-size: .88rem;
+      color: rgba(255, 255, 255, .4);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 52px
+    }
+
+    .hubx-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start
+    }
+
+    .hubx-desc {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, .68);
+      line-height: 1.8;
+      margin-bottom: 28px
+    }
+
+    .hubx-desc strong {
+      color: #fff;
+      font-weight: 600
+    }
+
+    .hubx-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px
+    }
+
+    .hubx-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      border: 1px solid rgba(108, 71, 255, .35);
+      color: rgba(255, 255, 255, .75);
+      background: rgba(108, 71, 255, .1);
+      transition: all .2s;
+      cursor: none
+    }
+
+    .hubx-badge:hover {
+      background: rgba(108, 71, 255, .24);
+      border-color: var(--hubx-accent);
+      color: #fff
+    }
+
+    .btn-hubx {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--hubx-accent);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: none;
+      border: none;
+      transition: all .25s;
+      box-shadow: 0 4px 24px rgba(108, 71, 255, .4);
+      position: relative;
+      overflow: hidden
+    }
+
+    .btn-hubx::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, .15);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s;
+      border-radius: 100px
+    }
+
+    .btn-hubx:hover::before {
+      transform: scaleX(1)
+    }
+
+    .btn-hubx:hover {
+      box-shadow: 0 10px 40px rgba(108, 71, 255, .55);
+      transform: translateY(-2px)
+    }
+
+    .hubx-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .hubx-card {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(108, 71, 255, .18);
+      border-radius: var(--radius);
+      padding: 22px 26px;
+      transition: all .3s;
+      cursor: none;
+      opacity: 0;
+      transform: translateX(28px)
+    }
+
+    .hubx-card.visible {
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity .6s, transform .6s cubic-bezier(.16, 1, .3, 1), background .3s, border-color .3s
+    }
+
+    .hubx-card:nth-child(2) {
+      transition-delay: .1s
+    }
+
+    .hubx-card:nth-child(3) {
+      transition-delay: .2s
+    }
+
+    .hubx-card:nth-child(4) {
+      transition-delay: .3s
+    }
+
+    .hubx-card:nth-child(5) {
+      transition-delay: .4s
+    }
+
+    .hubx-card:hover {
+      background: rgba(108, 71, 255, .11);
+      border-color: rgba(108, 71, 255, .45)
+    }
+
+    .hubx-card-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px
+    }
+
+    .hubx-card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(108, 71, 255, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: transform .3s
+    }
+
+    .hubx-card:hover .hubx-card-icon {
+      transform: scale(1.15) rotate(-5deg)
+    }
+
+    .hubx-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .03em;
+      color: #fff
+    }
+
+    .hubx-card-desc {
+      font-size: .8rem;
+      color: rgba(255, 255, 255, .42);
+      line-height: 1.65
+    }
+
+    .free-scheme {
+      margin-top: 52px;
+      background: linear-gradient(135deg, rgba(108, 71, 255, .18), rgba(232, 75, 42, .12));
+      border: 1px solid rgba(108, 71, 255, .28);
+      border-radius: 20px;
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .free-scheme::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(108, 71, 255, .06), transparent);
+      animation: schemeSweep 3.5s ease-in-out infinite
+    }
+
+    @keyframes schemeSweep {
+
+      0%,
+      100% {
+        transform: translateX(-100%)
+      }
+
+      50% {
+        transform: translateX(100%)
+      }
+    }
+
+    .free-scheme-icon {
+      font-size: 3.2rem;
+      flex-shrink: 0;
+      animation: floatY 3s ease-in-out infinite
+    }
+
+    .free-scheme-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: .04em;
+      color: #fff;
+      margin-bottom: 5px
+    }
+
+    .free-scheme-title span {
+      color: var(--lime)
+    }
+
+    .free-scheme-desc {
+      font-size: .84rem;
+      color: rgba(255, 255, 255, .55);
+      line-height: 1.6;
+      max-width: 460px
+    }
+
+    .free-scheme-btn {
+      margin-left: auto;
+      flex-shrink: 0;
+      background: var(--lime);
+      color: #111;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .88rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: none;
+      white-space: nowrap;
+      transition: all .2s
+    }
+
+    .free-scheme-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(216, 255, 88, .4)
+    }
+
+    /* ━━━━━━━━━━━━━━━ HOW ━━━━━━━━━━━━━━━ */
+    .how {
+      padding: 90px var(--px);
+      background: var(--step-bg);
+      color: var(--bg);
+      position: relative;
+      overflow: hidden;
+      transition: background .5s
+    }
+
+    .how::after {
+      content: 'RIDE';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20rem;
+      line-height: 1;
+      color: rgba(255, 255, 255, .022);
+      position: absolute;
+      right: -30px;
+      bottom: -50px;
+      pointer-events: none;
+      letter-spacing: -.02em
+    }
+
+    .how .sec-eyebrow {
+      color: var(--lime)
+    }
+
+    .how .sec-eyebrow::before {
+      background: var(--lime)
+    }
+
+    .how .sec-title {
+      color: var(--bg)
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 52px;
+      background: rgba(255, 255, 255, .05);
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    .how-step {
+      background: var(--step-bg);
+      padding: 36px 28px;
+      transition: background .3s;
+      opacity: 0;
+      transform: translateY(22px)
+    }
+
+    .how-step.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .6s, transform .6s, background .3s
+    }
+
+    .how-step:nth-child(2) {
+      transition-delay: .1s
+    }
+
+    .how-step:nth-child(3) {
+      transition-delay: .2s
+    }
+
+    .how-step:nth-child(4) {
+      transition-delay: .3s
+    }
+
+    .how-step:hover {
+      background: var(--step-hover)
+    }
+
+    .step-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.8rem;
+      line-height: 1;
+      color: rgba(255, 255, 255, .07);
+      margin-bottom: 16px;
+      transition: color .3s
+    }
+
+    .how-step:hover .step-n {
+      color: var(--lime)
+    }
+
+    .step-icon {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      display: block;
+      transition: transform .4s cubic-bezier(.34, 1.56, .64, 1)
+    }
+
+    .how-step:hover .step-icon {
+      transform: scale(1.3) rotate(10deg)
+    }
+
+    .step-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: .03em;
+      color: #f0ebe0;
+      margin-bottom: 8px
+    }
+
+    .step-desc {
+      font-size: .8rem;
+      color: rgba(245, 240, 232, .42);
+      line-height: 1.75
+    }
+
+    /* ━━━━━━━━━━━━━━━ BOOKING ━━━━━━━━━━━━━━━ */
+    .booking-section {
+      padding: 90px var(--px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start
+    }
+
+    .booking-form-wrap {
+      background: var(--card);
+      border-radius: 22px;
+      padding: 36px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px var(--shadow);
+      transition: background .4s, box-shadow .4s;
+      opacity: 0;
+      transform: translateY(28px)
+    }
+
+    .booking-form-wrap.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .8s cubic-bezier(.16, 1, .3, 1), transform .8s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .form-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+      color: var(--ink)
+    }
+
+    .form-subtitle {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: 24px
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px
+    }
+
+    .form-group label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    .form-group input,
+    .form-group select {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .88rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color .2s, background .4s, box-shadow .2s;
+      cursor: none;
+      appearance: none;
+      -webkit-appearance: none
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--rust);
+      box-shadow: 0 0 0 3px var(--glow)
+    }
+
+    .duration-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px
+    }
+
+    .dur-pill {
+      padding: 7px 14px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      font-size: .76rem;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: none;
+      background: var(--bg);
+      transition: all .2s;
+      font-family: 'Outfit', sans-serif;
+      line-height: 1
+    }
+
+    .dur-pill:hover {
+      border-color: var(--rust);
+      color: var(--rust)
+    }
+
+    .dur-pill.active {
+      background: var(--rust);
+      border-color: var(--rust);
+      color: #fff
+    }
+
+    .dur-pill.special {
+      border-color: var(--hubx-accent);
+      color: var(--hubx-accent)
+    }
+
+    .dur-pill.special:hover,
+    .dur-pill.special.active {
+      background: var(--hubx-accent);
+      border-color: var(--hubx-accent);
+      color: #fff
+    }
+
+    .fare-preview {
+      background: var(--sand);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background .4s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .fare-preview::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: var(--fare-pct, 60%);
+      background: linear-gradient(90deg, var(--rust), var(--lime));
+      transition: width .5s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .fare-info label {
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px
+    }
+
+    .fare-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.9rem;
+      color: var(--rust);
+      letter-spacing: .02em;
+      transition: transform .2s cubic-bezier(.34, 1.56, .64, 1)
+    }
+
+    .fare-breakdown {
+      text-align: right;
+      font-size: .72rem;
+      color: var(--muted);
+      line-height: 1.7
+    }
+
+    .fare-hubx-note {
+      font-size: .65rem;
+      color: var(--hubx-accent);
+      margin-top: 3px;
+      font-weight: 500
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--rust);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
+      transform: translateX(-100%)
+    }
+
+    .submit-btn:hover {
+      background: #c93a1e;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(232, 75, 42, .4)
+    }
+
+    .submit-btn:hover::after {
+      animation: shimmer .7s forwards
+    }
+
+    @keyframes shimmer {
+      to {
+        transform: translateX(100%)
+      }
+    }
+
+    .extend-wrap {
+      padding: 12px 14px;
+      background: var(--bg2);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .4s;
+      margin-bottom: 0
+    }
+
+    .extend-label {
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 500
+    }
+
+    .extend-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .extend-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--ink);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      font-family: 'Outfit', sans-serif;
+      flex-shrink: 0
+    }
+
+    .extend-btn:hover {
+      border-color: var(--rust);
+      background: var(--rust);
+      color: #fff
+    }
+
+    .extend-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      color: var(--ink);
+      min-width: 56px;
+      text-align: center
+    }
+
+    /* ━━━━━━━━━━━━━━━ WHY ━━━━━━━━━━━━━━━ */
+    .why {
+      padding: 90px var(--px);
+      background: var(--sand);
+      transition: background .5s
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 52px
+    }
+
+    .why-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      transition: transform .25s, box-shadow .25s, background .4s;
+      opacity: 0;
+      transform: translateY(22px)
+    }
+
+    .why-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .6s, transform .6s, box-shadow .25s
+    }
+
+    .why-card:nth-child(2) {
+      transition-delay: .12s
+    }
+
+    .why-card:nth-child(3) {
+      transition-delay: .24s
+    }
+
+    .why-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px var(--shadow)
+    }
+
+    .why-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: var(--lime);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      transition: transform .4s cubic-bezier(.34, 1.56, .64, 1)
+    }
+
+    .why-card:hover .why-icon {
+      transform: rotate(-10deg) scale(1.15)
+    }
+
+    .why-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: .03em;
+      margin-bottom: 8px
+    }
+
+    .why-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.75
+    }
+
+    /* ━━━━━━━━━━━━━━━ CONTACT ━━━━━━━━━━━━━━━ */
+    .contact-section {
+      padding: 90px var(--px);
+      background: var(--bg);
+      transition: background .5s
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      margin-top: 52px;
+      align-items: start
+    }
+
+    .contact-card {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: background .4s, transform .3s, box-shadow .3s;
+      opacity: 0;
+      transform: translateY(28px)
+    }
+
+    .contact-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px var(--shadow)
+    }
+
+    .contact-map {
+      width: 100%;
+      height: 210px;
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: background .4s
+    }
+
+    .map-grid {
+      position: absolute;
+      inset: 0;
+      opacity: .1;
+      background-image: linear-gradient(var(--muted) 1px, transparent 1px), linear-gradient(90deg, var(--muted) 1px, transparent 1px);
+      background-size: 30px 30px;
+      animation: mapShift 20s linear infinite
+    }
+
+    @keyframes mapShift {
+      from {
+        background-position: 0 0
+      }
+
+      to {
+        background-position: 30px 30px
+      }
+    }
+
+    .map-placeholder {
+      text-align: center;
+      z-index: 2
+    }
+
+    .map-pin {
+      font-size: 2.8rem;
+      animation: pinBounce 2s ease-in-out infinite;
+      display: block
+    }
+
+    @keyframes pinBounce {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-10px)
+      }
+    }
+
+    .contact-body {
+      padding: 24px 28px
+    }
+
+    .contact-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+      color: var(--ink)
+    }
+
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px
+    }
+
+    .contact-list .ci {
+      font-size: 1rem;
+      margin-top: 2px;
+      flex-shrink: 0
+    }
+
+    .contact-list .cv {
+      font-size: .86rem;
+      color: var(--ink);
+      line-height: 1.5
+    }
+
+    .contact-list .cv span {
+      display: block;
+      font-size: .68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 1px
+    }
+
+    .contact-list a {
+      color: var(--rust);
+      text-decoration: none
+    }
+
+    .contact-list a:hover {
+      text-decoration: underline
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px
+    }
+
+    .hour-item {
+      background: var(--bg2);
+      border-radius: 10px;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      transition: background .4s
+    }
+
+    .hour-day {
+      font-size: .66rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 600;
+      margin-bottom: 3px
+    }
+
+    .hour-time {
+      font-size: .84rem;
+      font-weight: 500;
+      color: var(--ink)
+    }
+
+    .hour-item.today {
+      border-color: var(--rust);
+      background: rgba(232, 75, 42, .06)
+    }
+
+    .hour-item.today .hour-day {
+      color: var(--rust)
+    }
+
+    .open-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(100, 200, 100, .15);
+      color: #3a8a3a;
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      margin-top: 4px
+    }
+
+    [data-theme="dark"] .open-badge {
+      background: rgba(100, 200, 100, .1);
+      color: #6dd06d
+    }
+
+    .open-dot {
+      width: 5px;
+      height: 5px;
+      background: #4caf50;
+      border-radius: 50%;
+      animation: pulseGlow 2s infinite;
+      flex-shrink: 0
+    }
+
+    /* ━━━━━━━━━━━━━━━ CTA ━━━━━━━━━━━━━━━ */
+    .cta {
+      margin: 0 var(--px) 72px;
+      background: var(--rust);
+      border-radius: 22px;
+      padding: 72px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 52px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .cta::before {
+      content: '🛵';
+      position: absolute;
+      right: 220px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 8rem;
+      opacity: .1;
+      filter: grayscale(1)
+    }
+
+    .cta-pulse {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(255, 255, 255, .08) 0%, transparent 60%);
+      animation: ctaPulse 4s ease-in-out infinite
+    }
+
+    @keyframes ctaPulse {
+
+      0%,
+      100% {
+        opacity: .5;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.05)
+      }
+    }
+
+    .cta-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: .95;
+      letter-spacing: .02em;
+      color: #fff;
+      position: relative;
+      z-index: 1
+    }
+
+    .cta-title span {
+      color: var(--lime)
+    }
+
+    .cta-sub {
+      color: rgba(255, 255, 255, .62);
+      font-size: .9rem;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--rust);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .15);
+      white-space: nowrap;
+      cursor: none
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .2)
+    }
+
+    .btn-ghost-w {
+      color: rgba(255, 255, 255, .72);
+      font-size: .8rem;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, .3);
+      padding-bottom: 2px;
+      white-space: nowrap;
+      cursor: none
+    }
+
+    .btn-ghost-w:hover {
+      color: #fff
+    }
+
+    /* ━━━━━━━━━━━━━━━ FOOTER ━━━━━━━━━━━━━━━ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 52px var(--px) 32px;
+      transition: border-color .4s
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 44px;
+      margin-bottom: 44px
+    }
+
+    .footer-brand .logo {
+      display: inline-flex;
+      margin-bottom: 3px
+    }
+
+    .footer-shop-name {
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 10px
+    }
+
+    .footer-brand p {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 230px
+    }
+
+    .footer-col-title {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 14px
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px
+    }
+
+    .footer-col ul li a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .82rem;
+      transition: color .2s, transform .2s;
+      display: inline-block;
+      cursor: none
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--rust);
+      transform: translateX(4px)
+    }
+
+    .footer-col ul li a.hubx-foot {
+      color: var(--hubx-accent) !important
+    }
+
+    .footer-hubx-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      background: rgba(108, 71, 255, .1);
+      border: 1px solid rgba(108, 71, 255, .22);
+      font-size: .68rem;
+      font-weight: 600;
+      color: rgba(108, 71, 255, .85);
+      letter-spacing: .06em;
+      text-transform: uppercase
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .footer-bottom p {
+      font-size: .75rem;
+      color: var(--muted)
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px
+    }
+
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .82rem;
+      text-decoration: none;
+      transition: all .2s;
+      cursor: none
+    }
+
+    .social-btn:hover {
+      border-color: var(--rust);
+      background: var(--rust);
+      color: #fff;
+      transform: scale(1.15) rotate(-5deg)
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .8s cubic-bezier(.16, 1, .3, 1), transform .8s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-size: .84rem;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s, transform .3s;
+      z-index: 9990;
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      max-width: 90vw;
+      text-align: center
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg)
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(232, 75, 42, .3);
+      border-radius: 3px
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--rust);
+      outline-offset: 3px;
+      border-radius: 4px
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important
+      }
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE — TABLET (≤900px)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    @media(max-width:900px) {
+      :root {
+        --px: 28px
+      }
+
+      .nav-links {
+        display: none
+      }
+
+      .nav-btn {
+        display: none
+      }
+
+      .nav-hamburger {
+        display: flex
+      }
+
+      .mobile-menu {
+        display: flex
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+        min-height: auto;
+        padding-bottom: 40px;
+        text-align: center
+      }
+
+      .hero-bg-shape {
+        display: none
+      }
+
+      .hero-blob {
+        display: none
+      }
+
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center
+      }
+
+      .hero-sub {
+        text-align: center
+      }
+
+      .hero-right {
+        margin-top: 36px;
+        justify-content: center
+      }
+
+      .hero-actions {
+        justify-content: center
+      }
+
+      .price-pill {
+        justify-content: center
+      }
+
+      .bike-svg-container {
+        width: min(340px, 85vw)
+      }
+
+      .ft1 {
+        top: 4px;
+        right: -4px
+      }
+
+      .ft2 {
+        display: none
+      }
+
+      .ft3 {
+        top: 44%;
+        right: -44px
+      }
+
+      .stats-strip {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, .06)
+      }
+
+      .stat-item:nth-child(odd) {
+        border-right: 1px solid rgba(255, 255, 255, .06)
+      }
+
+      .stat-item:nth-child(3),
+      .stat-item:nth-child(4) {
+        border-bottom: none
+      }
+
+      .shop-banner {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px
+      }
+
+      .vehicles-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .how-steps {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .booking-section {
+        grid-template-columns: 1fr;
+        gap: 40px
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr
+      }
+
+      .hubx-body {
+        grid-template-columns: 1fr
+      }
+
+      .free-scheme {
+        flex-direction: column;
+        text-align: center
+      }
+
+      .free-scheme-btn {
+        margin-left: 0
+      }
+
+      .cta {
+        grid-template-columns: 1fr;
+        text-align: center;
+        margin: 0 var(--px) 52px;
+        padding: 48px 32px
+      }
+
+      .cta::before {
+        display: none
+      }
+
+      .cta-actions {
+        align-items: center
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE — MOBILE (≤560px)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    @media(max-width:560px) {
+      :root {
+        --px: 18px
+      }
+
+      .logo {
+        font-size: 1.5rem
+      }
+
+      .logo-sub {
+        display: none
+      }
+
+      .hero-title {
+        font-size: clamp(3.4rem, 14vw, 5rem)
+      }
+
+      .bike-svg-container {
+        width: min(280px, 88vw)
+      }
+
+      .ft1,
+      .ft2,
+      .ft3 {
+        display: none
+      }
+
+      .stats-strip {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .shop-banner {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 28px var(--px)
+      }
+
+      .vehicles-grid {
+        grid-template-columns: 1fr
+      }
+
+      .how-steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 2px
+      }
+
+      .how-step {
+        padding: 28px 18px
+      }
+
+      .step-n {
+        font-size: 2.8rem
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr
+      }
+
+      .form-row {
+        grid-template-columns: 1fr
+      }
+
+      .duration-pills {
+        gap: 5px
+      }
+
+      .dur-pill {
+        font-size: .7rem;
+        padding: 6px 11px
+      }
+
+      .hubx-body {
+        grid-template-columns: 1fr;
+        gap: 36px
+      }
+
+      .cta {
+        padding: 40px 24px;
+        margin: 0 var(--px) 40px
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 28px
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px
+      }
+
+      .sec-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px
+      }
+
+      .free-scheme {
+        padding: 24px 20px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="particles"></canvas>
+  <div id="scroll-bar"></div>
+  <div class="cur" id="cur"></div>
+  <div class="cur-r" id="curR"></div>
+  <div class="toast" id="toast"></div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#fleet" onclick="closeMobile()">Fleet</a>
+    <a href="#hubx" class="hubx-link" onclick="closeMobile()">HubX ✦</a>
+    <a href="#how" onclick="closeMobile()">How It Works</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+    <a href="#book" onclick="closeMobile()">Book Now</a>
+    <div style="display:flex;align-items:center;gap:16px;margin-top:12px">
+      <button class="theme-btn" id="themeToggle2" aria-label="Toggle theme"></button>
+      <a href="#book" class="nav-btn" onclick="closeMobile()">Sign In</a>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <a href="#" class="logo-wrap">
+      <div class="logo">Speed<span>Wheelz</span>
+        <div class="logo-tag">Verified</div>
+      </div>
+      <div class="logo-sub">Powered by RideHub · HubX Platform</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#fleet">Fleet</a></li>
+      <li><a href="#hubx" class="hubx-link">HubX ✦</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#book">Book Now</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme"></button>
+      <a href="#book" class="nav-btn">Sign In</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-shape"></div>
+    <div class="hero-blob" id="heroBlob"></div>
+    <div class="hero-left">
+      <div class="shop-badge"><span class="shop-badge-dot"></span>SpeedWheelz · Chakrata Road , Navgaon</div>
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>Hourly Bike &amp; Scooter Rentals
+      </div>
+      <h1 class="hero-title">
+        <span class="tline"><span class="filled">RIDE</span></span>
+        <span class="tline"><span class="outline">YOUR</span></span>
+        <span class="tline"><span class="accent">WAY.</span></span>
+      </h1>
+      <p class="hero-sub">SpeedWheelz brings you verified, HubX-powered rides from ₹29/hr. Pick up at Chakrata Road — ride as
+        long as you need, simple, safe, zero hassle.</p>
+      <div class="hero-actions">
+        <a href="#book" class="btn-main" id="heroBtn">Rent a Bike Now</a>
+        <a href="#fleet" class="btn-outline"><span>See Fleet</span><span>→</span></a>
+      </div>
+      <div class="price-pill"><span style="font-size:1rem">⚡</span><span class="pill-text">Starting at just</span><span
+          class="pill-price">₹29/hr</span></div>
+    </div>
+    <div class="hero-right">
+      <div class="bike-wrap">
+        <div class="bike-svg-container">
+          <svg viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg" width="420" height="320"
+            aria-hidden="true">
+            <ellipse cx="210" cy="295" rx="130" ry="14" fill="rgba(0,0,0,0.07)" />
+            <circle cx="120" cy="230" r="68" fill="#1a1a1a" />
+            <circle cx="120" cy="230" r="52" fill="#2a2a2a" />
+            <circle cx="120" cy="230" r="13" fill="#f5f0e8" />
+            <line x1="120" y1="178" x2="120" y2="282" stroke="#444" stroke-width="2" />
+            <line x1="68" y1="230" x2="172" y2="230" stroke="#444" stroke-width="2" />
+            <line x1="84" y1="194" x2="156" y2="266" stroke="#444" stroke-width="2" />
+            <line x1="84" y1="266" x2="156" y2="194" stroke="#444" stroke-width="2" />
+            <path d="M120 230 L200 148 L282 230" stroke="#e84b2a" stroke-width="10" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M200 148 L200 98" stroke="#e84b2a" stroke-width="8" stroke-linecap="round" />
+            <path d="M120 230 L162 198 L200 148" stroke="#c8c0b0" stroke-width="7" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M282 230 L300 158 L312 102" stroke="#555" stroke-width="8" stroke-linecap="round" />
+            <path d="M296 106 L328 110" stroke="#333" stroke-width="9" stroke-linecap="round" />
+            <path d="M184 102 L220 98" stroke="#222" stroke-width="12" stroke-linecap="round" />
+            <circle cx="300" cy="230" r="68" fill="#1a1a1a" />
+            <circle cx="300" cy="230" r="52" fill="#2a2a2a" />
+            <circle cx="300" cy="230" r="13" fill="#f5f0e8" />
+            <line x1="300" y1="178" x2="300" y2="282" stroke="#444" stroke-width="2" />
+            <line x1="248" y1="230" x2="352" y2="230" stroke="#444" stroke-width="2" />
+            <line x1="264" y1="194" x2="336" y2="266" stroke="#444" stroke-width="2" />
+            <line x1="264" y1="266" x2="336" y2="194" stroke="#444" stroke-width="2" />
+            <ellipse cx="210" cy="194" rx="36" ry="20" fill="#e84b2a" opacity=".9" />
+            <ellipse cx="314" cy="116" rx="10" ry="7" fill="#ffd700" opacity=".85" />
+          </svg>
+          <div class="float-tag ft1"><span class="ft-icon">⏱️</span>
+            <div>
+              <div class="ft-label">Hourly Rate</div>
+              <div class="ft-val">from ₹29</div>
+            </div>
+          </div>
+          <div class="float-tag ft2"><span class="ft-icon">🔋</span>
+            <div>
+              <div class="ft-label">EV Range</div>
+              <div class="ft-val">80 km</div>
+            </div>
+          </div>
+          <div class="float-tag ft3"><span class="ft-icon">✦</span>
+            <div>
+              <div class="ft-label">Powered By</div>
+              <div class="ft-val" style="color:#6c47ff">HubX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item"><span class="ticker-dot"></span>SPEEDWHEELZ · Chakrata Road</span>
+      <span class="ticker-item hubx-tick"><span class="ticker-dot" style="background:#6c47ff"></span>POWERED BY
+        HUBX</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>INSTANT BOOKING</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>NO FUEL COST</span>
+      <span class="ticker-item hubx-tick"><span class="ticker-dot" style="background:#6c47ff"></span>1 DAY FREE
+        SCHEME</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>HOURLY RENTALS</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>ELECTRIC OPTIONS</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>FULL INSURANCE</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>OPEN 8AM – 9PM</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>SPEEDWHEELZ · Chakrata Road</span>
+      <span class="ticker-item hubx-tick"><span class="ticker-dot" style="background:#6c47ff"></span>POWERED BY
+        HUBX</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>INSTANT BOOKING</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>NO FUEL COST</span>
+      <span class="ticker-item hubx-tick"><span class="ticker-dot" style="background:#6c47ff"></span>1 DAY FREE
+        SCHEME</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>HOURLY RENTALS</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>ELECTRIC OPTIONS</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>FULL INSURANCE</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>OPEN 8AM – 9PM</span>
+    </div>
+  </div>
+
+  <!-- STATS — uniform dark background -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num" data-target="12000">0</div>
+      <div class="stat-label">Happy Riders</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="48">0</div>
+      <div class="stat-label">Verified Vehicles</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="4">0</div>
+      <div class="stat-label">City Locations</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="98">0</div>
+      <div class="stat-label">% Satisfaction</div>
+    </div>
+  </div>
+
+  <!-- SHOP BANNER -->
+  <div class="shop-banner">
+    <div class="shop-item">
+      <div class="shop-icon-wrap">🏪</div>
+      <div>
+        <div class="shop-label">Shop Name</div>
+        <div class="shop-val" style="font-weight:600">SpeedWheelz</div>
+      </div>
+    </div>
+    <div class="shop-item">
+      <div class="shop-icon-wrap">📍</div>
+      <div>
+        <div class="shop-label">Location</div>
+        <div class="shop-val"><a href="https://maps.app.goo.gl/htRf9hAK4kKNV3MX9" target="_blank">12, Brigade Rd, MG
+            Road<br>Navgaon, KA 560001</a></div>
+      </div>
+    </div>
+    <div class="shop-item">
+      <div class="shop-icon-wrap">📞</div>
+      <div>
+        <div class="shop-label">Contact</div>
+        <div class="shop-val"><a href="tel:+918012345678">+91 80 1234 5678</a><br><a
+            href="mailto:hello@speedwheelz.in">hello@speedwheelz.in</a></div>
+      </div>
+    </div>
+    <div class="shop-item">
+      <div class="shop-icon-wrap">🕐</div>
+      <div>
+        <div class="shop-label">Open Today</div>
+        <div class="shop-val">8:00 AM – 9:00 PM<div class="open-badge"><span class="open-dot"></span>Open Now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLEET -->
+  <section class="vehicles" id="fleet">
+    <div class="sec-header reveal">
+      <div>
+        <div class="sec-eyebrow">Our Fleet</div>
+        <h2 class="sec-title">Pick Your Ride</h2>
+      </div>
+      <a href="#" class="sec-link">View all vehicles →</a>
+    </div>
+    <div class="vehicles-grid">
+      <div class="v-card">
+        <div class="v-img-wrap"><span class="v-emoji">🛵</span>
+          <div class="v-badge hot">Most Popular</div>
+        </div>
+        <div class="v-body">
+          <div class="v-name">City Scooter</div>
+          <div class="v-type">Electric · Auto Transmission</div>
+          <div class="v-specs">
+            <div class="v-spec">⚡ Electric</div>
+            <div class="v-spec">🛣️ 80 km</div>
+            <div class="v-spec">👥 1–2 riders</div>
+            <div class="v-spec">✦ HubX</div>
+          </div>
+          <div class="v-footer">
+            <div class="v-price">₹49<sub>/hr</sub></div><button class="v-book-btn" onclick="scrollToBook(49)">Book
+              Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="v-card">
+        <div class="v-img-wrap" style="background:var(--sand)"><span class="v-emoji">🏍️</span>
+          <div class="v-badge">New</div>
+        </div>
+        <div class="v-body">
+          <div class="v-name">Sport Bike 150cc</div>
+          <div class="v-type">Petrol · Manual Transmission</div>
+          <div class="v-specs">
+            <div class="v-spec">⛽ Petrol</div>
+            <div class="v-spec">🛣️ Unlimited</div>
+            <div class="v-spec">👥 1–2 riders</div>
+            <div class="v-spec">✦ HubX</div>
+          </div>
+          <div class="v-footer">
+            <div class="v-price">₹79<sub>/hr</sub></div><button class="v-book-btn" onclick="scrollToBook(79)">Book
+              Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="v-card">
+        <div class="v-img-wrap" style="background:var(--sand)"><span class="v-emoji">🚲</span>
+          <div class="v-badge">Eco</div>
+        </div>
+        <div class="v-body">
+          <div class="v-name">E-Cycle</div>
+          <div class="v-type">Electric · Pedal Assist</div>
+          <div class="v-specs">
+            <div class="v-spec">⚡ Electric</div>
+            <div class="v-spec">🛣️ 40 km</div>
+            <div class="v-spec">👤 1 rider</div>
+            <div class="v-spec">✦ HubX</div>
+          </div>
+          <div class="v-footer">
+            <div class="v-price">₹29<sub>/hr</sub></div><button class="v-book-btn" onclick="scrollToBook(29)">Book
+              Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HUBX -->
+  <section class="hubx-section" id="hubx">
+    <div class="hubx-grid-bg"></div>
+    <div class="hubx-orb hubx-orb-1"></div>
+    <div class="hubx-orb hubx-orb-2"></div>
+    <div class="hubx-inner">
+      <div class="hubx-eyebrow"><span class="hubx-eyebrow-dot"></span>Premium Platform Feature</div>
+      <div class="hubx-title">Hub<span>X</span></div>
+      <div class="hubx-tagline">The Brain Behind Every Ride at SpeedWheelz</div>
+      <div class="hubx-body">
+        <div>
+          <p class="hubx-desc"><strong>HubX</strong> is the central management system powering every ride at
+            SpeedWheelz. It connects you with <strong>trusted, verified vehicles</strong> and manages all ride
+            operations — from the moment you book to the moment you return.</p>
+          <p class="hubx-desc">HubX ensures <strong>safe and reliable bookings</strong>, real-time tracking, seamless
+            payments, and complete ride history. Every vehicle carries the <strong>HubX Verified</strong> badge —
+            safety, maintenance, and reliability all checked.</p>
+          <div class="hubx-badges">
+            <span class="hubx-badge">🛡️ Verified Vehicles</span>
+            <span class="hubx-badge">📍 Live Tracking</span>
+            <span class="hubx-badge">💳 Smart Payments</span>
+            <span class="hubx-badge">🧾 Ride History</span>
+            <span class="hubx-badge">👨‍💼 Admin Panel</span>
+            <span class="hubx-badge">🔒 End-to-End Safety</span>
+          </div>
+          <a href="#book" class="btn-hubx">✦ &nbsp;Activate HubX Ride</a>
+        </div>
+        <div class="hubx-cards">
+          <div class="hubx-card">
+            <div class="hubx-card-head">
+              <div class="hubx-card-icon">🔗</div>
+              <div class="hubx-card-title">Verified Driver Network</div>
+            </div>
+            <div class="hubx-card-desc">HubX connects users with verified, background-checked vehicle owners ensuring
+              trust on every ride.</div>
+          </div>
+          <div class="hubx-card">
+            <div class="hubx-card-head">
+              <div class="hubx-card-icon">🎁</div>
+              <div class="hubx-card-title">1 Day Free Scheme</div>
+            </div>
+            <div class="hubx-card-desc">New users experience SpeedWheelz at zero cost for one full day. HubX manages
+              eligibility and activation automatically.</div>
+          </div>
+          <div class="hubx-card">
+            <div class="hubx-card-head">
+              <div class="hubx-card-icon">📍</div>
+              <div class="hubx-card-title">Real-Time Tracking</div>
+            </div>
+            <div class="hubx-card-desc">Track your vehicle live throughout your ride. HubX monitors every trip for
+              safety and efficiency.</div>
+          </div>
+          <div class="hubx-card">
+            <div class="hubx-card-head">
+              <div class="hubx-card-icon">💳</div>
+              <div class="hubx-card-title">Payment &amp; Invoicing</div>
+            </div>
+            <div class="hubx-card-desc">Secure payments, automatic invoicing, and complete ride history — all managed
+              through HubX.</div>
+          </div>
+          <div class="hubx-card">
+            <div class="hubx-card-head">
+              <div class="hubx-card-icon">🖥️</div>
+              <div class="hubx-card-title">Admin Control Panel</div>
+            </div>
+            <div class="hubx-card-desc">SpeedWheelz operators manage fleet health, bookings, earnings through HubX's
+              powerful admin dashboard.</div>
+          </div>
+        </div>
+      </div>
+      <div class="free-scheme">
+        <span class="free-scheme-icon">🎁</span>
+        <div>
+          <div class="free-scheme-title">1 Day <span>Free Ride</span> Scheme</div>
+          <div class="free-scheme-desc">Eligible new users get one full day of riding completely free. Experience fleet,
+            tracking, and service before spending a rupee. Powered and managed by HubX.</div>
+        </div>
+        <a href="#book" class="free-scheme-btn">Claim Free Ride →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="how" id="how">
+    <div class="sec-eyebrow">Process</div>
+    <h2 class="sec-title">How It Works</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="step-n">01</div><span class="step-icon">📱</span>
+        <div class="step-title">Sign Up</div>
+        <div class="step-desc">Create your account in 60 seconds. HubX verifies your identity instantly.</div>
+      </div>
+      <div class="how-step">
+        <div class="step-n">02</div><span class="step-icon">✦</span>
+        <div class="step-title">HubX Matches You</div>
+        <div class="step-desc">HubX assigns a verified SpeedWheelz vehicle nearest to your location.</div>
+      </div>
+      <div class="how-step">
+        <div class="step-n">03</div><span class="step-icon">⏳</span>
+        <div class="step-title">Set Your Hours</div>
+        <div class="step-desc">Choose 1 hour to 7 days. Fare calculated instantly — no surprises.</div>
+      </div>
+      <div class="how-step">
+        <div class="step-n">04</div><span class="step-icon">🧾</span>
+        <div class="step-title">Ride &amp; Invoice</div>
+        <div class="step-desc">HubX tracks your ride, processes payment, and drops your invoice automatically.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="booking-section" id="book">
+    <div class="reveal">
+      <div class="sec-eyebrow">Quick Book</div>
+      <h2 class="sec-title" style="margin-bottom:16px">Reserve in<br>Minutes.</h2>
+      <p style="color:var(--muted);font-size:.9rem;line-height:1.8;max-width:360px">HubX confirms your booking instantly
+        and assigns a verified SpeedWheelz ride.</p>
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--muted)"><span>✅</span>HubX
+          instant confirmation via SMS</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--muted)"><span>🛡️</span>Only
+          verified vehicles — HubX guaranteed</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--muted)"><span>🧾</span>Auto
+          invoice from HubX dashboard</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--muted)"><span>📍</span>Pickup:
+          SpeedWheelz, Chakrata Road, Navgaon</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:.84rem;color:#6c47ff"><span>🎁</span>New user?
+          Check 1 Day Free Scheme</div>
+      </div>
+    </div>
+    <div class="booking-form-wrap" id="bookingForm">
+      <div class="form-title">Book Your Ride</div>
+      <div class="form-subtitle">SpeedWheelz · Powered by HubX</div>
+      <div class="form-group"><label>Vehicle Type</label>
+        <select id="vehicleSelect">
+          <option value="29">🚲 E-Cycle — ₹29/hr</option>
+          <option value="49" selected>🛵 City Scooter — ₹49/hr</option>
+          <option value="79">🏍️ Sport Bike 150cc — ₹79/hr</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0"><label>Pickup Date</label><input type="date" id="pickDate" />
+        </div>
+        <div class="form-group" style="margin-bottom:0"><label>Pickup Time</label><input type="time" id="pickTime"
+            value="10:00" /></div>
+      </div>
+      <div style="height:14px"></div>
+      <div class="form-group" style="margin-bottom:6px"><label>Duration</label></div>
+      <div class="duration-pills" id="durPills"></div>
+      <div class="extend-wrap">
+        <span class="extend-label">⏱️ Fine-tune duration</span>
+        <div class="extend-controls">
+          <button class="extend-btn" id="btnMinus">−</button>
+          <span class="extend-val" id="extendVal">2 hrs</span>
+          <button class="extend-btn" id="btnPlus">+</button>
+        </div>
+      </div>
+      <div style="height:14px"></div>
+      <div class="fare-preview" id="farePreview">
+        <div class="fare-info"><label>Total Fare</label>
+          <div class="fare-amount" id="fareDisplay">₹98</div>
+        </div>
+        <div style="text-align:right">
+          <div class="fare-breakdown" id="fareBreakdown">₹49/hr × 2 hrs<br>= ₹98 total</div>
+          <div class="fare-hubx-note" id="fareHubxNote">✦ Managed by HubX</div>
+        </div>
+      </div>
+      <button class="submit-btn" id="bookBtn">✦ &nbsp;Confirm via HubX</button>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why">
+    <div class="sec-eyebrow reveal">Why Us</div>
+    <h2 class="sec-title reveal">Built for riders,<br>by riders.</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">⏱️</div>
+        <div class="why-name">Pay Only For What You Use</div>
+        <div class="why-desc">Hourly billing means you're never overpaying. HubX calculates your exact fare
+          transparently upfront.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🛡️</div>
+        <div class="why-name">HubX Verified Safety</div>
+        <div class="why-desc">Every SpeedWheelz vehicle passes HubX's multi-point check — maintenance, registration,
+          insurance all verified.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔐</div>
+        <div class="why-name">Secure &amp; Transparent</div>
+        <div class="why-desc">Fare breakdowns shown before you confirm. Payments and data secured end-to-end by HubX.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="sec-eyebrow reveal">Find Us</div>
+    <h2 class="sec-title reveal">Visit SpeedWheelz</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-map">
+          <div class="map-grid"></div>
+          <div class="map-placeholder">
+            <span class="map-pin">📍</span>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--rust)">
+              SpeedWheelz · Chakrata Road</div>
+            <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Navgaon, Dehradun</div>
+          </div>
+        </div>
+        <div class="contact-body">
+          <div class="contact-name">SpeedWheelz — Chakrata Road</div>
+          <ul class="contact-list">
+            <li><span class="ci">📍</span>
+              <div class="cv"><span>Address</span>12, Brigade Road, near Chakrata Road Metro,<br>Navgaon, Dehradun 560001
+              </div>
+            </li>
+            <li><span class="ci">📞</span>
+              <div class="cv"><span>Phone</span><a href="tel:+918012345678">+91 80 1234 5678</a></div>
+            </li>
+            <li><span class="ci">✉️</span>
+              <div class="cv"><span>Email</span><a href="mailto:hello@speedwheelz.in">hello@speedwheelz.in</a></div>
+            </li>
+            <li><span class="ci">🚇</span>
+              <div class="cv"><span>Metro</span>Chakrata Road Station — 2 min walk (Purple Line)</div>
+            </li>
+            <li><span class="ci">✦</span>
+              <div class="cv"><span>Platform</span>Managed by HubX · RideHub Network</div>
+            </li>
+          </ul>
+          <a href="https://maps.google.com/?q=Chakrata+Road+Navgaon" target="_blank" class="btn-main"
+            style="margin-top:18px;display:inline-block;font-size:.84rem;padding:11px 22px">Open in Google Maps →</a>
+        </div>
+      </div>
+      <div>
+        <div class="contact-card" style="margin-bottom:18px">
+          <div class="contact-body">
+            <div class="contact-name">Opening Hours</div>
+            <div class="hours-grid">
+              <div class="hour-item today">
+                <div class="hour-day">Mon – Fri</div>
+                <div class="hour-time">8:00 AM – 9:00 PM</div>
+              </div>
+              <div class="hour-item">
+                <div class="hour-day">Saturday</div>
+                <div class="hour-time">8:00 AM – 10:00 PM</div>
+              </div>
+              <div class="hour-item">
+                <div class="hour-day">Sunday</div>
+                <div class="hour-time">9:00 AM – 8:00 PM</div>
+              </div>
+              <div class="hour-item">
+                <div class="hour-day">Holidays</div>
+                <div class="hour-time">10:00 AM – 6:00 PM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-body">
+            <div class="contact-name">Quick Message</div>
+            <div class="form-group" style="margin-top:14px"><label>Your Name</label><input type="text"
+                placeholder="Rahul Kumar" id="cName" /></div>
+            <div class="form-group"><label>Phone / Email</label><input type="text" placeholder="+91 98765 43210"
+                id="cContact" /></div>
+            <div class="form-group"><label>Message</label><input type="text"
+                placeholder="Ask about HubX, vehicles, availability..." id="cMsg" /></div>
+            <button class="submit-btn" onclick="sendMsg()">📨 &nbsp;Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-pulse"></div>
+    <div>
+      <div class="cta-title">READY TO<br><span>HIT THE ROAD?</span></div>
+      <div class="cta-sub">SpeedWheelz · HubX-verified rides from ₹29/hr. No deposit, no paperwork.</div>
+    </div>
+    <div class="cta-actions">
+      <a href="#book" class="btn-white">✦ Start with HubX</a>
+      <a href="#hubx" class="btn-ghost-w">Learn about 1 Day Free Scheme</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo-wrap" style="text-decoration:none">
+          <div class="logo">Speed<span>Wheelz</span></div>
+        </a>
+        <div class="footer-shop-name">Powered by RideHub · HubX Platform</div>
+        <p>Navgaon's trusted hourly bike &amp; scooter rental. Every ride verified, every journey safe.</p>
+        <div class="footer-hubx-badge">✦ HubX Verified Partner</div>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" aria-label="Instagram">📸</a>
+          <a href="#" class="social-btn" aria-label="Twitter">🐦</a>
+          <a href="#" class="social-btn" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <ul>
+          <li><a href="#fleet">Our Fleet</a></li>
+          <li><a href="#hubx" class="hubx-foot">✦ HubX Platform</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#book">Book a Ride</a></li>
+          <li><a href="#contact">Find Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">HubX</div>
+        <ul>
+          <li><a href="#hubx" class="hubx-foot">What is HubX?</a></li>
+          <li><a href="#hubx">1 Day Free Scheme</a></li>
+          <li><a href="#hubx">Verified Vehicles</a></li>
+          <li><a href="#hubx">Live Tracking</a></li>
+          <li><a href="#hubx">Admin Panel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 SpeedWheelz · RideHub Technologies Pvt. Ltd.</p>
+      <p>📍 Chakrata Road, Navgaon · <a href="tel:+918012345678" style="color:var(--rust);text-decoration:none">+91 80 1234
+          5678</a></p>
+    </div>
+  </footer>
+
+  <script>
+    /* ── PARTICLES ── */
+    (function () {
+      const c = document.getElementById('particles'), ctx = c.getContext('2d');
+      let W, H, pts = [];
+      function resize() { W = c.width = innerWidth; H = c.height = innerHeight }
+      resize(); addEventListener('resize', resize);
+      class P { constructor() { this.reset() } reset() { this.x = Math.random() * W; this.y = Math.random() * H; this.r = Math.random() * 1.8 + .4; this.vx = (Math.random() - .5) * .28; this.vy = (Math.random() - .5) * .28; this.life = Math.random() * 150; this.maxLife = Math.random() * 200 + 100; this.col = Math.random() > .6 ? '232,75,42' : Math.random() > .5 ? '216,255,88' : '108,71,255' } tick() { this.x += this.vx; this.y += this.vy; this.life++; if (this.life > this.maxLife || this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset() } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(${this.col},${Math.sin(this.life / this.maxLife * Math.PI) * .35})`; ctx.fill() } }
+      for (let i = 0; i < 80; i++)pts.push(new P());
+      (function loop() { ctx.clearRect(0, 0, W, H); pts.forEach(p => { p.tick(); p.draw() }); requestAnimationFrame(loop) })();
+    })();
+
+    /* ── CURSOR ── */
+    const cur = document.getElementById('cur'), curR = document.getElementById('curR');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY });
+    document.querySelectorAll('a,button').forEach(el => {
+      const inHubx = el.closest('.hubx-section');
+      el.addEventListener('mouseenter', () => { cur.classList.add('hov'); curR.classList.add('hov'); if (inHubx) { cur.classList.add('hubx-hov'); curR.classList.add('hubx-hov') } });
+      el.addEventListener('mouseleave', () => { cur.classList.remove('hov', 'hubx-hov'); curR.classList.remove('hov', 'hubx-hov') });
+    });
+    (function loop() { if (cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; rx += (mx - rx) * .1; ry += (my - ry) * .1; curR.style.left = rx + 'px'; curR.style.top = ry + 'px' } requestAnimationFrame(loop) })();
+
+    /* ── SCROLL ── */
+    addEventListener('scroll', () => {
+      const p = scrollY / (document.body.scrollHeight - innerHeight) * 100;
+      document.getElementById('scroll-bar').style.width = p + '%';
+      document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 60);
+    });
+
+    /* ── THEME ── */
+    const html = document.documentElement;
+    html.setAttribute('data-theme', localStorage.getItem('rh-theme') || 'light');
+    function applyTheme(n) { html.setAttribute('data-theme', n); localStorage.setItem('rh-theme', n); showToast(n === 'dark' ? '🌙 Dark mode on' : '☀️ Light mode on') }
+    document.getElementById('themeToggle').addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+    document.getElementById('themeToggle2')?.addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+
+    /* ── MOBILE MENU ── */
+    const ham = document.getElementById('hamburger'), mob = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); mob.style.display = mob.classList.contains('open') ? 'flex' : 'none' });
+    function closeMobile() { ham.classList.remove('open'); mob.classList.remove('open'); mob.style.display = 'none' }
+
+    /* ── INTERSECTION OBSERVER ── */
+    const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) } }) }, { threshold: .1 });
+    document.querySelectorAll('.v-card,.why-card,.how-step,.shop-item,.contact-card,.stat-item,.reveal,.booking-form-wrap,.hubx-card').forEach(el => obs.observe(el));
+
+    /* ── COUNTERS ── */
+    const cObs = new IntersectionObserver(es => { es.forEach(e => { if (!e.isIntersecting) return; const el = e.target.querySelector('.stat-num'); if (!el) return; const target = +el.dataset.target, suf = target === 98 ? '%' : target >= 1000 ? '+' : ''; const s = performance.now(); (function step(now) { const t = Math.min((now - s) / 1800, 1), ease = 1 - Math.pow(1 - t, 3), v = Math.round(ease * target); el.textContent = (v >= 1000 ? v.toLocaleString('en-IN') : v) + suf; if (t < 1) requestAnimationFrame(step) })(s); cObs.unobserve(e.target) }) }, { threshold: .4 });
+    document.querySelectorAll('.stat-item').forEach(el => cObs.observe(el));
+
+    /* ── DURATION SYSTEM ── */
+    const STEPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72, 96, 120, 144, 168];
+    const PILLS = [{ h: 1, l: '1 hr' }, { h: 2, l: '2 hrs' }, { h: 3, l: '3 hrs' }, { h: 4, l: '4 hrs' }, { h: 6, l: '6 hrs' }, { h: 8, l: '8 hrs' }, { h: 12, l: '12 hrs' }, { h: 24, l: '1 Day' }, { h: 48, l: '2 Days', sp: true }, { h: 72, l: '3 Days', sp: true }, { h: 120, l: '5 Days', sp: true }, { h: 168, l: '7 Days', sp: true }];
+    let curDur = 2;
+    const pillContainer = document.getElementById('durPills');
+    PILLS.forEach(p => {
+      const btn = document.createElement('button');
+      btn.className = 'dur-pill' + (p.sp ? ' special' : '') + (p.h === 2 ? ' active' : '');
+      btn.textContent = p.l;
+      btn.addEventListener('click', () => { curDur = p.h; document.querySelectorAll('.dur-pill').forEach(b => b.classList.remove('active')); btn.classList.add('active'); updateExt(); calcFare() });
+      pillContainer.appendChild(btn);
+    });
+    function durLabel(h) { if (h < 24) return h + ' hr' + (h > 1 ? 's' : ''); if (h === 24) return '1 Day'; if (h % 24 === 0) return (h / 24) + ' Days'; return Math.floor(h / 24) + 'd ' + (h % 24) + 'h' }
+    function updateExt() { document.getElementById('extendVal').textContent = durLabel(curDur) }
+    document.getElementById('btnMinus').addEventListener('click', () => { let i = STEPS.indexOf(curDur); if (i < 0) i = STEPS.findIndex(s => s > curDur); i = Math.max(0, i - 1); curDur = STEPS[i]; document.querySelectorAll('.dur-pill').forEach(b => b.classList.remove('active')); updateExt(); calcFare() });
+    document.getElementById('btnPlus').addEventListener('click', () => { let i = STEPS.indexOf(curDur); if (i < 0) i = STEPS.findIndex(s => s > curDur) - 1; i = Math.min(STEPS.length - 1, i + 1); curDur = STEPS[i]; document.querySelectorAll('.dur-pill').forEach(b => b.classList.remove('active')); updateExt(); calcFare() });
+
+    /* ── FARE ── */
+    function calcFare() {
+      const rate = +document.getElementById('vehicleSelect').value, total = rate * curDur;
+      const d = document.getElementById('fareDisplay');
+      d.style.transform = 'scale(0.82)';
+      setTimeout(() => {
+        d.textContent = total >= 1000 ? '₹' + total.toLocaleString('en-IN') : '₹' + total;
+        d.style.transform = 'scale(1)';
+        document.getElementById('fareBreakdown').innerHTML = '₹' + rate + '/hr × ' + durLabel(curDur) + '<br>= ' + (total >= 1000 ? '₹' + total.toLocaleString('en-IN') : '₹' + total) + ' total';
+        document.getElementById('fareHubxNote').textContent = curDur >= 24 ? '✦ Multi-day · HubX managed' : '✦ Managed by HubX';
+        document.getElementById('farePreview').style.setProperty('--fare-pct', Math.min(total / (79 * 168) * 100, 100) + '%');
+      }, 100);
+    }
+    document.getElementById('vehicleSelect').addEventListener('change', calcFare);
+    document.getElementById('pickDate').value = new Date().toISOString().split('T')[0];
+    calcFare();
+
+    /* ── BOOKING ── */
+    document.getElementById('bookBtn').addEventListener('click', () => {
+      const v = document.getElementById('vehicleSelect'), name = v.options[v.selectedIndex].text.split('—')[0].trim(), fare = document.getElementById('fareDisplay').textContent, btn = document.getElementById('bookBtn');
+      btn.innerHTML = '✅ &nbsp;Booking Confirmed by HubX!'; btn.style.background = '#2e9e5b';
+      setTimeout(() => { btn.innerHTML = '✦ &nbsp;Confirm via HubX'; btn.style.background = '' }, 3500);
+      showToast('🎉 Booked via HubX! ' + name.trim() + ' · ' + durLabel(curDur) + ' · ' + fare);
+    });
+
+    /* ── SCROLL TO BOOK ── */
+    function scrollToBook(rate) {
+      document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+      if (rate) { const sel = document.getElementById('vehicleSelect'); for (let i = 0; i < sel.options.length; i++) { if (+sel.options[i].value === rate) { sel.selectedIndex = i; break } } calcFare() }
+    }
+
+    /* ── CONTACT ── */
+    function sendMsg() {
+      const n = document.getElementById('cName').value.trim();
+      if (!n) { showToast('⚠️ Please enter your name'); return }
+      showToast('✅ Message sent to SpeedWheelz!');
+      ['cName', 'cContact', 'cMsg'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    /* ── TOAST ── */
+    function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3400) }
+
+    /* ── MAGNETIC HERO BTN ── */
+    const hb = document.getElementById('heroBtn');
+    if (hb && window.matchMedia('(pointer:fine)').matches) {
+      hb.addEventListener('mousemove', e => { const r = hb.getBoundingClientRect(); hb.style.transform = `translate(${(e.clientX - (r.left + r.width / 2)) * .14}px,${(e.clientY - (r.top + r.height / 2)) * .14}px)` });
+      hb.addEventListener('mouseleave', () => hb.style.transform = '');
+    }
+
+    /* ── PARALLAX BLOB ── */
+    if (window.matchMedia('(pointer:fine)').matches) {
+      addEventListener('mousemove', e => {
+        const b = document.getElementById('heroBlob');
+        if (b) b.style.transform = `translate(${(e.clientX / innerWidth - .5) * 28}px,${(e.clientY / innerHeight - .5) * 28}px)`;
+      });
+    }
+  </script>
+</body>
+</html>
