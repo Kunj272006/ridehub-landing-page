@@ -38,7 +38,7 @@
       --hubx: #09071e;
       --hubx-accent: #6c47ff;
       --hubx-glow: rgba(108, 71, 255, 0.25);
-      --px: 52px;
+      --px: 52px
     }
 
     [data-theme="dark"] {
@@ -55,7 +55,7 @@
       --border: rgba(255, 255, 255, 0.07);
       --step-bg: #0e0d09;
       --step-hover: #1a1812;
-      --glow: rgba(255, 92, 53, 0.12);
+      --glow: rgba(255, 92, 53, 0.12)
     }
 
     html {
@@ -72,7 +72,6 @@
       transition: background .5s, color .5s
     }
 
-    /* PARTICLES */
     #particles {
       position: fixed;
       inset: 0;
@@ -81,7 +80,6 @@
       opacity: .4
     }
 
-    /* CURSOR — desktop only */
     .cur,
     .cur-r {
       display: none
@@ -147,7 +145,6 @@
       }
     }
 
-    /* SCROLL BAR */
     #scroll-bar {
       position: fixed;
       top: 0;
@@ -160,7 +157,6 @@
       transition: width .12s linear
     }
 
-    /* ━━━━━━━━━━━━━━━ NAV ━━━━━━━━━━━━━━━ */
     nav {
       position: fixed;
       top: 0;
@@ -343,7 +339,6 @@
       transform: scale(1.04) !important
     }
 
-    /* mobile hamburger */
     .nav-hamburger {
       display: none;
       flex-direction: column;
@@ -415,7 +410,6 @@
       color: var(--hubx-accent)
     }
 
-    /* ━━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━━━ */
     .hero {
       min-height: 100vh;
       padding: 120px var(--px) 60px;
@@ -722,7 +716,6 @@
       color: #111
     }
 
-    /* BIKE */
     .bike-wrap {
       animation: fadeUp .9s .36s both;
       position: relative
@@ -827,7 +820,6 @@
       right: -52px
     }
 
-    /* ━━━━━━━━━━━━━━━ TICKER ━━━━━━━━━━━━━━━ */
     .ticker-wrap {
       background: var(--ink);
       color: var(--lime);
@@ -878,12 +870,10 @@
       color: var(--hubx-accent)
     }
 
-    /* ━━━━━━━━━━━━━━━ STATS STRIP — FIXED ━━━━━━━━━━━━━━━ */
     .stats-strip {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      background: #111008;
-      /* single solid bg, no alternating */
+      background: #111008
     }
 
     .stat-item {
@@ -891,10 +881,9 @@
       text-align: center;
       border-right: 1px solid rgba(255, 255, 255, .06);
       background: #111008;
-      /* force every cell identical */
       transition: background .3s;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(20px)
     }
 
     .stat-item:last-child {
@@ -939,7 +928,6 @@
       margin-top: 8px
     }
 
-    /* ━━━━━━━━━━━━━━━ SHOP BANNER ━━━━━━━━━━━━━━━ */
     .shop-banner {
       padding: 36px var(--px);
       display: grid;
@@ -1018,7 +1006,6 @@
       text-decoration: underline
     }
 
-    /* ━━━━━━━━━━━━━━━ SECTION SHARED ━━━━━━━━━━━━━━━ */
     .sec-eyebrow {
       font-size: .68rem;
       font-weight: 600;
@@ -1070,7 +1057,6 @@
       border-color: var(--rust)
     }
 
-    /* ━━━━━━━━━━━━━━━ VEHICLES ━━━━━━━━━━━━━━━ */
     .vehicles {
       padding: 90px var(--px);
       position: relative
@@ -1236,7 +1222,6 @@
       transform: scale(1.06)
     }
 
-    /* ━━━━━━━━━━━━━━━ HUBX ━━━━━━━━━━━━━━━ */
     .hubx-section {
       padding: 110px var(--px);
       background: var(--hubx);
@@ -1598,7 +1583,6 @@
       box-shadow: 0 6px 20px rgba(216, 255, 88, .4)
     }
 
-    /* ━━━━━━━━━━━━━━━ HOW ━━━━━━━━━━━━━━━ */
     .how {
       padding: 90px var(--px);
       background: var(--step-bg);
@@ -1711,7 +1695,6 @@
       line-height: 1.75
     }
 
-    /* ━━━━━━━━━━━━━━━ BOOKING ━━━━━━━━━━━━━━━ */
     .booking-section {
       padding: 90px var(--px);
       display: grid;
@@ -1933,6 +1916,12 @@
       animation: shimmer .7s forwards
     }
 
+    .submit-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none
+    }
+
     @keyframes shimmer {
       to {
         transform: translateX(100%)
@@ -1995,7 +1984,6 @@
       text-align: center
     }
 
-    /* ━━━━━━━━━━━━━━━ WHY ━━━━━━━━━━━━━━━ */
     .why {
       padding: 90px var(--px);
       background: var(--sand);
@@ -2068,7 +2056,6 @@
       line-height: 1.75
     }
 
-    /* ━━━━━━━━━━━━━━━ CONTACT ━━━━━━━━━━━━━━━ */
     .contact-section {
       padding: 90px var(--px);
       background: var(--bg);
@@ -2282,7 +2269,6 @@
       flex-shrink: 0
     }
 
-    /* ━━━━━━━━━━━━━━━ CTA ━━━━━━━━━━━━━━━ */
     .cta {
       margin: 0 var(--px) 72px;
       background: var(--rust);
@@ -2394,7 +2380,6 @@
       color: #fff
     }
 
-    /* ━━━━━━━━━━━━━━━ FOOTER ━━━━━━━━━━━━━━━ */
     footer {
       border-top: 1px solid var(--border);
       padding: 52px var(--px) 32px;
@@ -2520,7 +2505,6 @@
       transform: scale(1.15) rotate(-5deg)
     }
 
-    /* REVEAL */
     .reveal {
       opacity: 0;
       transform: translateY(36px);
@@ -2532,7 +2516,6 @@
       transform: translateY(0)
     }
 
-    /* TOAST */
     .toast {
       position: fixed;
       bottom: 28px;
@@ -2600,18 +2583,12 @@
       }
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   RESPONSIVE — TABLET (≤900px)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     @media(max-width:900px) {
       :root {
         --px: 28px
       }
 
-      .nav-links {
-        display: none
-      }
-
+      .nav-links,
       .nav-btn {
         display: none
       }
@@ -2632,10 +2609,7 @@
         text-align: center
       }
 
-      .hero-bg-shape {
-        display: none
-      }
-
+      .hero-bg-shape,
       .hero-blob {
         display: none
       }
@@ -2646,20 +2620,10 @@
         align-items: center
       }
 
-      .hero-sub {
-        text-align: center
-      }
-
-      .hero-right {
-        margin-top: 36px;
-        justify-content: center
-      }
-
+      .hero-sub,
+      .price-pill,
       .hero-actions {
-        justify-content: center
-      }
-
-      .price-pill {
+        text-align: center;
         justify-content: center
       }
 
@@ -2759,9 +2723,6 @@
       }
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   RESPONSIVE — MOBILE (≤560px)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     @media(max-width:560px) {
       :root {
         --px: 18px
@@ -2873,8 +2834,6 @@
   <div class="cur" id="cur"></div>
   <div class="cur-r" id="curR"></div>
   <div class="toast" id="toast"></div>
-
-  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#fleet" onclick="closeMobile()">Fleet</a>
     <a href="#hubx" class="hubx-link" onclick="closeMobile()">HubX ✦</a>
@@ -2886,8 +2845,6 @@
       <a href="#book" class="nav-btn" onclick="closeMobile()">Sign In</a>
     </div>
   </div>
-
-  <!-- NAV -->
   <nav id="mainNav">
     <a href="#" class="logo-wrap">
       <div class="logo">Speed<span>Wheelz</span>
@@ -2905,13 +2862,10 @@
     <div class="nav-right">
       <button class="theme-btn" id="themeToggle" aria-label="Toggle theme"></button>
       <a href="#book" class="nav-btn">Sign In</a>
-      <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="nav-hamburger" id="hamburger"
+        aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
-
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-bg-shape"></div>
     <div class="hero-blob" id="heroBlob"></div>
@@ -2925,8 +2879,8 @@
         <span class="tline"><span class="outline">YOUR</span></span>
         <span class="tline"><span class="accent">WAY.</span></span>
       </h1>
-      <p class="hero-sub">SpeedWheelz brings you verified, HubX-powered rides from ₹29/hr. Pick up at Chakrata Road — ride as
-        long as you need, simple, safe, zero hassle.</p>
+      <p class="hero-sub">SpeedWheelz brings you verified, HubX-powered rides from ₹29/hr. Pick up at Chakrata Road —
+        ride as long as you need, simple, safe, zero hassle.</p>
       <div class="hero-actions">
         <a href="#book" class="btn-main" id="heroBtn">Rent a Bike Now</a>
         <a href="#fleet" class="btn-outline"><span>See Fleet</span><span>→</span></a>
@@ -2987,8 +2941,6 @@
       </div>
     </div>
   </section>
-
-  <!-- TICKER -->
   <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker-inner">
       <span class="ticker-item"><span class="ticker-dot"></span>SPEEDWHEELZ · Chakrata Road</span>
@@ -3015,8 +2967,6 @@
       <span class="ticker-item"><span class="ticker-dot"></span>OPEN 8AM – 9PM</span>
     </div>
   </div>
-
-  <!-- STATS — uniform dark background -->
   <div class="stats-strip">
     <div class="stat-item">
       <div class="stat-num" data-target="12000">0</div>
@@ -3035,8 +2985,6 @@
       <div class="stat-label">% Satisfaction</div>
     </div>
   </div>
-
-  <!-- SHOP BANNER -->
   <div class="shop-banner">
     <div class="shop-item">
       <div class="shop-icon-wrap">🏪</div>
@@ -3070,8 +3018,6 @@
       </div>
     </div>
   </div>
-
-  <!-- FLEET -->
   <section class="vehicles" id="fleet">
     <div class="sec-header reveal">
       <div>
@@ -3140,8 +3086,6 @@
       </div>
     </div>
   </section>
-
-  <!-- HUBX -->
   <section class="hubx-section" id="hubx">
     <div class="hubx-grid-bg"></div>
     <div class="hubx-orb hubx-orb-1"></div>
@@ -3159,12 +3103,9 @@
             payments, and complete ride history. Every vehicle carries the <strong>HubX Verified</strong> badge —
             safety, maintenance, and reliability all checked.</p>
           <div class="hubx-badges">
-            <span class="hubx-badge">🛡️ Verified Vehicles</span>
-            <span class="hubx-badge">📍 Live Tracking</span>
-            <span class="hubx-badge">💳 Smart Payments</span>
-            <span class="hubx-badge">🧾 Ride History</span>
-            <span class="hubx-badge">👨‍💼 Admin Panel</span>
-            <span class="hubx-badge">🔒 End-to-End Safety</span>
+            <span class="hubx-badge">🛡️ Verified Vehicles</span><span class="hubx-badge">📍 Live Tracking</span><span
+              class="hubx-badge">💳 Smart Payments</span><span class="hubx-badge">🧾 Ride History</span><span
+              class="hubx-badge">👨‍💼 Admin Panel</span><span class="hubx-badge">🔒 End-to-End Safety</span>
           </div>
           <a href="#book" class="btn-hubx">✦ &nbsp;Activate HubX Ride</a>
         </div>
@@ -3222,8 +3163,6 @@
       </div>
     </div>
   </section>
-
-  <!-- HOW -->
   <section class="how" id="how">
     <div class="sec-eyebrow">Process</div>
     <h2 class="sec-title">How It Works</h2>
@@ -3250,8 +3189,6 @@
       </div>
     </div>
   </section>
-
-  <!-- BOOKING -->
   <section class="booking-section" id="book">
     <div class="reveal">
       <div class="sec-eyebrow">Quick Book</div>
@@ -3311,8 +3248,6 @@
       <button class="submit-btn" id="bookBtn">✦ &nbsp;Confirm via HubX</button>
     </div>
   </section>
-
-  <!-- WHY -->
   <section class="why">
     <div class="sec-eyebrow reveal">Why Us</div>
     <h2 class="sec-title reveal">Built for riders,<br>by riders.</h2>
@@ -3337,8 +3272,6 @@
       </div>
     </div>
   </section>
-
-  <!-- CONTACT -->
   <section class="contact-section" id="contact">
     <div class="sec-eyebrow reveal">Find Us</div>
     <h2 class="sec-title reveal">Visit SpeedWheelz</h2>
@@ -3346,8 +3279,7 @@
       <div class="contact-card">
         <div class="contact-map">
           <div class="map-grid"></div>
-          <div class="map-placeholder">
-            <span class="map-pin">📍</span>
+          <div class="map-placeholder"><span class="map-pin">📍</span>
             <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--rust)">
               SpeedWheelz · Chakrata Road</div>
             <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Navgaon, Dehradun</div>
@@ -3357,8 +3289,8 @@
           <div class="contact-name">SpeedWheelz — Chakrata Road</div>
           <ul class="contact-list">
             <li><span class="ci">📍</span>
-              <div class="cv"><span>Address</span>12, Brigade Road, near Chakrata Road Metro,<br>Navgaon, Dehradun 560001
-              </div>
+              <div class="cv"><span>Address</span>12, Brigade Road, near Chakrata Road Metro,<br>Navgaon, Dehradun
+                560001</div>
             </li>
             <li><span class="ci">📞</span>
               <div class="cv"><span>Phone</span><a href="tel:+918012345678">+91 80 1234 5678</a></div>
@@ -3410,27 +3342,21 @@
                 id="cContact" /></div>
             <div class="form-group"><label>Message</label><input type="text"
                 placeholder="Ask about HubX, vehicles, availability..." id="cMsg" /></div>
-            <button class="submit-btn" onclick="sendMsg()">📨 &nbsp;Send Message</button>
+            <button class="submit-btn" id="msgBtn" onclick="sendMsg()">📨 &nbsp;Send Message</button>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- CTA -->
   <div class="cta">
     <div class="cta-pulse"></div>
     <div>
       <div class="cta-title">READY TO<br><span>HIT THE ROAD?</span></div>
       <div class="cta-sub">SpeedWheelz · HubX-verified rides from ₹29/hr. No deposit, no paperwork.</div>
     </div>
-    <div class="cta-actions">
-      <a href="#book" class="btn-white">✦ Start with HubX</a>
-      <a href="#hubx" class="btn-ghost-w">Learn about 1 Day Free Scheme</a>
-    </div>
+    <div class="cta-actions"><a href="#book" class="btn-white">✦ Start with HubX</a><a href="#hubx"
+        class="btn-ghost-w">Learn about 1 Day Free Scheme</a></div>
   </div>
-
-  <!-- FOOTER -->
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
@@ -3440,10 +3366,8 @@
         <div class="footer-shop-name">Powered by RideHub · HubX Platform</div>
         <p>Navgaon's trusted hourly bike &amp; scooter rental. Every ride verified, every journey safe.</p>
         <div class="footer-hubx-badge">✦ HubX Verified Partner</div>
-        <div class="footer-socials">
-          <a href="#" class="social-btn" aria-label="Instagram">📸</a>
-          <a href="#" class="social-btn" aria-label="Twitter">🐦</a>
-          <a href="#" class="social-btn" aria-label="WhatsApp">💬</a>
+        <div class="footer-socials"><a href="#" class="social-btn" aria-label="Instagram">📸</a><a href="#"
+            class="social-btn" aria-label="Twitter">🐦</a><a href="#" class="social-btn" aria-label="WhatsApp">💬</a>
         </div>
       </div>
       <div class="footer-col">
@@ -3478,134 +3402,113 @@
     </div>
     <div class="footer-bottom">
       <p>© 2025 SpeedWheelz · RideHub Technologies Pvt. Ltd.</p>
-      <p>📍 Chakrata Road, Navgaon · <a href="tel:+918012345678" style="color:var(--rust);text-decoration:none">+91 80 1234
-          5678</a></p>
+      <p>📍 Chakrata Road, Navgaon · <a href="tel:+918012345678" style="color:var(--rust);text-decoration:none">+91 80
+          1234 5678</a></p>
     </div>
   </footer>
 
   <script>
+    // ════════════════════════════════════
+    // YOUR APPS SCRIPT URL — already set!
+    // ════════════════════════════════════
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzZ3N_f1EVQuZiM6t6aq0d8PXpjPXuLX1uL5V0S1MuPiZcVnvy2CfAEviiJhgnTyYBU/exec';
+
+    /* ── FIXED: sendToSheet now always sends — no broken check ── */
+    async function sendToSheet(payload) {
+      if (!SHEET_URL) return false;
+      try {
+        await fetch(SHEET_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        return true;
+      } catch (e) {
+        console.error('Sheet error:', e);
+        return false;
+      }
+    }
+
     /* ── PARTICLES ── */
-    (function () {
-      const c = document.getElementById('particles'), ctx = c.getContext('2d');
-      let W, H, pts = [];
-      function resize() { W = c.width = innerWidth; H = c.height = innerHeight }
-      resize(); addEventListener('resize', resize);
-      class P { constructor() { this.reset() } reset() { this.x = Math.random() * W; this.y = Math.random() * H; this.r = Math.random() * 1.8 + .4; this.vx = (Math.random() - .5) * .28; this.vy = (Math.random() - .5) * .28; this.life = Math.random() * 150; this.maxLife = Math.random() * 200 + 100; this.col = Math.random() > .6 ? '232,75,42' : Math.random() > .5 ? '216,255,88' : '108,71,255' } tick() { this.x += this.vx; this.y += this.vy; this.life++; if (this.life > this.maxLife || this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset() } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(${this.col},${Math.sin(this.life / this.maxLife * Math.PI) * .35})`; ctx.fill() } }
-      for (let i = 0; i < 80; i++)pts.push(new P());
-      (function loop() { ctx.clearRect(0, 0, W, H); pts.forEach(p => { p.tick(); p.draw() }); requestAnimationFrame(loop) })();
-    })();
+    (function () { const c = document.getElementById('particles'), ctx = c.getContext('2d'); let W, H, pts = []; function resize() { W = c.width = innerWidth; H = c.height = innerHeight } resize(); addEventListener('resize', resize); class P { constructor() { this.reset() } reset() { this.x = Math.random() * W; this.y = Math.random() * H; this.r = Math.random() * 1.8 + .4; this.vx = (Math.random() - .5) * .28; this.vy = (Math.random() - .5) * .28; this.life = Math.random() * 150; this.maxLife = Math.random() * 200 + 100; this.col = Math.random() > .6 ? '232,75,42' : Math.random() > .5 ? '216,255,88' : '108,71,255' } tick() { this.x += this.vx; this.y += this.vy; this.life++; if (this.life > this.maxLife || this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset() } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(${this.col},${Math.sin(this.life / this.maxLife * Math.PI) * .35})`; ctx.fill() } } for (let i = 0; i < 80; i++)pts.push(new P()); (function loop() { ctx.clearRect(0, 0, W, H); pts.forEach(p => { p.tick(); p.draw() }); requestAnimationFrame(loop) })() })();
 
     /* ── CURSOR ── */
-    const cur = document.getElementById('cur'), curR = document.getElementById('curR');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY });
-    document.querySelectorAll('a,button').forEach(el => {
-      const inHubx = el.closest('.hubx-section');
-      el.addEventListener('mouseenter', () => { cur.classList.add('hov'); curR.classList.add('hov'); if (inHubx) { cur.classList.add('hubx-hov'); curR.classList.add('hubx-hov') } });
-      el.addEventListener('mouseleave', () => { cur.classList.remove('hov', 'hubx-hov'); curR.classList.remove('hov', 'hubx-hov') });
-    });
-    (function loop() { if (cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; rx += (mx - rx) * .1; ry += (my - ry) * .1; curR.style.left = rx + 'px'; curR.style.top = ry + 'px' } requestAnimationFrame(loop) })();
+    const cur = document.getElementById('cur'), curR = document.getElementById('curR'); let mx = 0, my = 0, rx = 0, ry = 0; addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY }); document.querySelectorAll('a,button').forEach(el => { const inHubx = el.closest('.hubx-section'); el.addEventListener('mouseenter', () => { cur.classList.add('hov'); curR.classList.add('hov'); if (inHubx) { cur.classList.add('hubx-hov'); curR.classList.add('hubx-hov') } }); el.addEventListener('mouseleave', () => { cur.classList.remove('hov', 'hubx-hov'); curR.classList.remove('hov', 'hubx-hov') }) }); (function loop() { if (cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; rx += (mx - rx) * .1; ry += (my - ry) * .1; curR.style.left = rx + 'px'; curR.style.top = ry + 'px' } requestAnimationFrame(loop) })();
 
     /* ── SCROLL ── */
-    addEventListener('scroll', () => {
-      const p = scrollY / (document.body.scrollHeight - innerHeight) * 100;
-      document.getElementById('scroll-bar').style.width = p + '%';
-      document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 60);
-    });
+    addEventListener('scroll', () => { const p = scrollY / (document.body.scrollHeight - innerHeight) * 100; document.getElementById('scroll-bar').style.width = p + '%'; document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 60) });
 
     /* ── THEME ── */
-    const html = document.documentElement;
-    html.setAttribute('data-theme', localStorage.getItem('rh-theme') || 'light');
-    function applyTheme(n) { html.setAttribute('data-theme', n); localStorage.setItem('rh-theme', n); showToast(n === 'dark' ? '🌙 Dark mode on' : '☀️ Light mode on') }
-    document.getElementById('themeToggle').addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
-    document.getElementById('themeToggle2')?.addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+    const html = document.documentElement; html.setAttribute('data-theme', localStorage.getItem('rh-theme') || 'light'); function applyTheme(n) { html.setAttribute('data-theme', n); localStorage.setItem('rh-theme', n); showToast(n === 'dark' ? '🌙 Dark mode on' : '☀️ Light mode on') } document.getElementById('themeToggle').addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light')); document.getElementById('themeToggle2')?.addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
 
     /* ── MOBILE MENU ── */
-    const ham = document.getElementById('hamburger'), mob = document.getElementById('mobileMenu');
-    ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); mob.style.display = mob.classList.contains('open') ? 'flex' : 'none' });
-    function closeMobile() { ham.classList.remove('open'); mob.classList.remove('open'); mob.style.display = 'none' }
+    const ham = document.getElementById('hamburger'), mob = document.getElementById('mobileMenu'); ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); mob.style.display = mob.classList.contains('open') ? 'flex' : 'none' }); function closeMobile() { ham.classList.remove('open'); mob.classList.remove('open'); mob.style.display = 'none' }
 
     /* ── INTERSECTION OBSERVER ── */
-    const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) } }) }, { threshold: .1 });
-    document.querySelectorAll('.v-card,.why-card,.how-step,.shop-item,.contact-card,.stat-item,.reveal,.booking-form-wrap,.hubx-card').forEach(el => obs.observe(el));
+    const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) } }) }, { threshold: .1 }); document.querySelectorAll('.v-card,.why-card,.how-step,.shop-item,.contact-card,.stat-item,.reveal,.booking-form-wrap,.hubx-card').forEach(el => obs.observe(el));
 
     /* ── COUNTERS ── */
-    const cObs = new IntersectionObserver(es => { es.forEach(e => { if (!e.isIntersecting) return; const el = e.target.querySelector('.stat-num'); if (!el) return; const target = +el.dataset.target, suf = target === 98 ? '%' : target >= 1000 ? '+' : ''; const s = performance.now(); (function step(now) { const t = Math.min((now - s) / 1800, 1), ease = 1 - Math.pow(1 - t, 3), v = Math.round(ease * target); el.textContent = (v >= 1000 ? v.toLocaleString('en-IN') : v) + suf; if (t < 1) requestAnimationFrame(step) })(s); cObs.unobserve(e.target) }) }, { threshold: .4 });
-    document.querySelectorAll('.stat-item').forEach(el => cObs.observe(el));
+    const cObs = new IntersectionObserver(es => { es.forEach(e => { if (!e.isIntersecting) return; const el = e.target.querySelector('.stat-num'); if (!el) return; const target = +el.dataset.target, suf = target === 98 ? '%' : target >= 1000 ? '+' : ''; const s = performance.now(); (function step(now) { const t = Math.min((now - s) / 1800, 1), ease = 1 - Math.pow(1 - t, 3), v = Math.round(ease * target); el.textContent = (v >= 1000 ? v.toLocaleString('en-IN') : v) + suf; if (t < 1) requestAnimationFrame(step) })(s); cObs.unobserve(e.target) }) }, { threshold: .4 }); document.querySelectorAll('.stat-item').forEach(el => cObs.observe(el));
 
     /* ── DURATION SYSTEM ── */
     const STEPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72, 96, 120, 144, 168];
     const PILLS = [{ h: 1, l: '1 hr' }, { h: 2, l: '2 hrs' }, { h: 3, l: '3 hrs' }, { h: 4, l: '4 hrs' }, { h: 6, l: '6 hrs' }, { h: 8, l: '8 hrs' }, { h: 12, l: '12 hrs' }, { h: 24, l: '1 Day' }, { h: 48, l: '2 Days', sp: true }, { h: 72, l: '3 Days', sp: true }, { h: 120, l: '5 Days', sp: true }, { h: 168, l: '7 Days', sp: true }];
-    let curDur = 2;
-    const pillContainer = document.getElementById('durPills');
-    PILLS.forEach(p => {
-      const btn = document.createElement('button');
-      btn.className = 'dur-pill' + (p.sp ? ' special' : '') + (p.h === 2 ? ' active' : '');
-      btn.textContent = p.l;
-      btn.addEventListener('click', () => { curDur = p.h; document.querySelectorAll('.dur-pill').forEach(b => b.classList.remove('active')); btn.classList.add('active'); updateExt(); calcFare() });
-      pillContainer.appendChild(btn);
-    });
+    let curDur = 2; const pillContainer = document.getElementById('durPills');
+    PILLS.forEach(p => { const btn = document.createElement('button'); btn.className = 'dur-pill' + (p.sp ? ' special' : '') + (p.h === 2 ? ' active' : ''); btn.textContent = p.l; btn.addEventListener('click', () => { curDur = p.h; document.querySelectorAll('.dur-pill').forEach(b => b.classList.remove('active')); btn.classList.add('active'); updateExt(); calcFare() }); pillContainer.appendChild(btn) });
     function durLabel(h) { if (h < 24) return h + ' hr' + (h > 1 ? 's' : ''); if (h === 24) return '1 Day'; if (h % 24 === 0) return (h / 24) + ' Days'; return Math.floor(h / 24) + 'd ' + (h % 24) + 'h' }
     function updateExt() { document.getElementById('extendVal').textContent = durLabel(curDur) }
     document.getElementById('btnMinus').addEventListener('click', () => { let i = STEPS.indexOf(curDur); if (i < 0) i = STEPS.findIndex(s => s > curDur); i = Math.max(0, i - 1); curDur = STEPS[i]; document.querySelectorAll('.dur-pill').forEach(b => b.classList.remove('active')); updateExt(); calcFare() });
     document.getElementById('btnPlus').addEventListener('click', () => { let i = STEPS.indexOf(curDur); if (i < 0) i = STEPS.findIndex(s => s > curDur) - 1; i = Math.min(STEPS.length - 1, i + 1); curDur = STEPS[i]; document.querySelectorAll('.dur-pill').forEach(b => b.classList.remove('active')); updateExt(); calcFare() });
 
     /* ── FARE ── */
-    function calcFare() {
-      const rate = +document.getElementById('vehicleSelect').value, total = rate * curDur;
-      const d = document.getElementById('fareDisplay');
-      d.style.transform = 'scale(0.82)';
-      setTimeout(() => {
-        d.textContent = total >= 1000 ? '₹' + total.toLocaleString('en-IN') : '₹' + total;
-        d.style.transform = 'scale(1)';
-        document.getElementById('fareBreakdown').innerHTML = '₹' + rate + '/hr × ' + durLabel(curDur) + '<br>= ' + (total >= 1000 ? '₹' + total.toLocaleString('en-IN') : '₹' + total) + ' total';
-        document.getElementById('fareHubxNote').textContent = curDur >= 24 ? '✦ Multi-day · HubX managed' : '✦ Managed by HubX';
-        document.getElementById('farePreview').style.setProperty('--fare-pct', Math.min(total / (79 * 168) * 100, 100) + '%');
-      }, 100);
-    }
+    function calcFare() { const rate = +document.getElementById('vehicleSelect').value, total = rate * curDur; const d = document.getElementById('fareDisplay'); d.style.transform = 'scale(0.82)'; setTimeout(() => { d.textContent = total >= 1000 ? '₹' + total.toLocaleString('en-IN') : '₹' + total; d.style.transform = 'scale(1)'; document.getElementById('fareBreakdown').innerHTML = '₹' + rate + '/hr × ' + durLabel(curDur) + '<br>= ' + (total >= 1000 ? '₹' + total.toLocaleString('en-IN') : '₹' + total) + ' total'; document.getElementById('fareHubxNote').textContent = curDur >= 24 ? '✦ Multi-day · HubX managed' : '✦ Managed by HubX'; document.getElementById('farePreview').style.setProperty('--fare-pct', Math.min(total / (79 * 168) * 100, 100) + '%') }, 100) }
     document.getElementById('vehicleSelect').addEventListener('change', calcFare);
     document.getElementById('pickDate').value = new Date().toISOString().split('T')[0];
     calcFare();
 
-    /* ── BOOKING ── */
-    document.getElementById('bookBtn').addEventListener('click', () => {
-      const v = document.getElementById('vehicleSelect'), name = v.options[v.selectedIndex].text.split('—')[0].trim(), fare = document.getElementById('fareDisplay').textContent, btn = document.getElementById('bookBtn');
-      btn.innerHTML = '✅ &nbsp;Booking Confirmed by HubX!'; btn.style.background = '#2e9e5b';
+    /* ── BOOKING → GOOGLE SHEETS ── */
+    document.getElementById('bookBtn').addEventListener('click', async () => {
+      const v = document.getElementById('vehicleSelect');
+      const vehicleName = v.options[v.selectedIndex].text.split('—')[0].trim();
+      const fare = document.getElementById('fareDisplay').textContent;
+      const btn = document.getElementById('bookBtn');
+      btn.disabled = true;
+      btn.innerHTML = '⏳ &nbsp;Saving to HubX...';
+      await sendToSheet({ type: 'booking', vehicle: vehicleName, duration: durLabel(curDur), fare: fare, date: document.getElementById('pickDate').value, time: document.getElementById('pickTime').value });
+      btn.disabled = false;
+      btn.innerHTML = '✅ &nbsp;Booking Confirmed by HubX!';
+      btn.style.background = '#2e9e5b';
+      showToast('🎉 Booked! ' + vehicleName + ' · ' + durLabel(curDur) + ' · ' + fare);
       setTimeout(() => { btn.innerHTML = '✦ &nbsp;Confirm via HubX'; btn.style.background = '' }, 3500);
-      showToast('🎉 Booked via HubX! ' + name.trim() + ' · ' + durLabel(curDur) + ' · ' + fare);
     });
 
-    /* ── SCROLL TO BOOK ── */
-    function scrollToBook(rate) {
-      document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
-      if (rate) { const sel = document.getElementById('vehicleSelect'); for (let i = 0; i < sel.options.length; i++) { if (+sel.options[i].value === rate) { sel.selectedIndex = i; break } } calcFare() }
-    }
-
-    /* ── CONTACT ── */
-    function sendMsg() {
+    /* ── CONTACT → GOOGLE SHEETS ── */
+    async function sendMsg() {
       const n = document.getElementById('cName').value.trim();
+      const c = document.getElementById('cContact').value.trim();
+      const m = document.getElementById('cMsg').value.trim();
       if (!n) { showToast('⚠️ Please enter your name'); return }
+      const btn = document.getElementById('msgBtn');
+      btn.disabled = true; btn.innerHTML = '⏳ &nbsp;Sending...';
+      await sendToSheet({ type: 'message', name: n, contact: c, message: m });
+      btn.disabled = false; btn.innerHTML = '📨 &nbsp;Send Message';
       showToast('✅ Message sent to SpeedWheelz!');
       ['cName', 'cContact', 'cMsg'].forEach(id => document.getElementById(id).value = '');
     }
+
+    /* ── SCROLL TO BOOK ── */
+    function scrollToBook(rate) { document.getElementById('book').scrollIntoView({ behavior: 'smooth' }); if (rate) { const sel = document.getElementById('vehicleSelect'); for (let i = 0; i < sel.options.length; i++) { if (+sel.options[i].value === rate) { sel.selectedIndex = i; break } } calcFare() } }
 
     /* ── TOAST ── */
     function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3400) }
 
     /* ── MAGNETIC HERO BTN ── */
-    const hb = document.getElementById('heroBtn');
-    if (hb && window.matchMedia('(pointer:fine)').matches) {
-      hb.addEventListener('mousemove', e => { const r = hb.getBoundingClientRect(); hb.style.transform = `translate(${(e.clientX - (r.left + r.width / 2)) * .14}px,${(e.clientY - (r.top + r.height / 2)) * .14}px)` });
-      hb.addEventListener('mouseleave', () => hb.style.transform = '');
-    }
+    const hb = document.getElementById('heroBtn'); if (hb && window.matchMedia('(pointer:fine)').matches) { hb.addEventListener('mousemove', e => { const r = hb.getBoundingClientRect(); hb.style.transform = `translate(${(e.clientX - (r.left + r.width / 2)) * .14}px,${(e.clientY - (r.top + r.height / 2)) * .14}px)` }); hb.addEventListener('mouseleave', () => hb.style.transform = '') }
 
     /* ── PARALLAX BLOB ── */
-    if (window.matchMedia('(pointer:fine)').matches) {
-      addEventListener('mousemove', e => {
-        const b = document.getElementById('heroBlob');
-        if (b) b.style.transform = `translate(${(e.clientX / innerWidth - .5) * 28}px,${(e.clientY / innerHeight - .5) * 28}px)`;
-      });
-    }
+    if (window.matchMedia('(pointer:fine)').matches) { addEventListener('mousemove', e => { const b = document.getElementById('heroBlob'); if (b) b.style.transform = `translate(${(e.clientX / innerWidth - .5) * 28}px,${(e.clientY / innerHeight - .5) * 28}px)` }) }
   </script>
 </body>
+
 </html>
